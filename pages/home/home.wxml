@@ -1,0 +1,14 @@
+<!--home.wxml-->
+<view class="all">
+    <!--轮播图  -->
+    <view class='nav'>
+        <swiper class="swiper" indicator-dots="true" autoplay="true" current="{{current}}" interval="5000" duration="500" circular="true">
+            <block wx:for="{{lun_ad}}" wx:key="item">
+                <swiper-item><image src='{{blogUrl}}/{{item.img}}' class='img' mode=""></image></swiper-item>
+            </block>  
+        </swiper>
+        <!-- <image src="https://blog.myfeiyou.com/public/public/workimg/2017050917324632350.png"></image> -->
+    </view>
+
+
+</view>

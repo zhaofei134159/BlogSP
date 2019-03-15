@@ -1,0 +1,40 @@
+{
+  "pages":[
+    "pages/home/home",
+    "pages/logs/logs",
+    "pages/index/index"
+  ],
+  "window":{
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "相伴一生",
+    "navigationBarTextStyle":"black",
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#eeeeee"
+  },
+  "tabBar": {
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "color": "#333",
+    "selectedColor": "#333",
+    "list":[
+      {
+        "pagePath":"pages/home/home",
+        "text": "",
+        "iconPath": "resource/images/home.png",
+        "selectedIconPath": "resource/images/home-active.png"
+      },
+      {
+        "pagePath": "pages/logs/logs",
+        "text": "",
+        "iconPath": "resource/images/message.png",
+        "selectedIconPath": "resource/images/message-active.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "",
+        "iconPath": "resource/images/profile.png",
+        "selectedIconPath": "resource/images/profile-active.png"
+      }
+    ]
+  }
+}
