@@ -1,14 +1,37 @@
 <!--home.wxml-->
 <view class="all">
+    <!-- 搜索框 -->
+    <view class="section">
+        <input placeholder="搜索" class="search" confirm-type="search" bindfocus="inputSearch"/>
+        <!-- <icon class="searchcion" size='20' type='search'></icon> -->
+    </view>
     <!--轮播图  -->
     <view class='nav'>
-        <swiper class="swiper" indicator-dots="true" autoplay="true" current="{{current}}" interval="5000" duration="500" circular="true">
+        <swiper class="swiper" indicator-dots="true" autoplay="true" current="{{current}}" interval="5000" duration="500"   circular="true">
             <block wx:for="{{lun_ad}}" wx:key="item">
-                <swiper-item><image src='{{blogUrl}}/{{item.img}}' class='img' mode=""></image></swiper-item>
+                <navigator url='../detail/detail?workId={{item.id}}'>
+                    <swiper-item>
+                        <image src='{{blogUrl}}/{{item.img}}' class='img' mode=""></image>
+                    </swiper-item>
+                </navigator>
+                <!-- <swiper-item><image src="https://blog.myfeiyou.com/public/public/workimg/2017041815401093325.jpg" class='img' mode="">></image></swiper-item> -->
             </block>  
         </swiper>
-        <!-- <image src="https://blog.myfeiyou.com/public/public/workimg/2017050917324632350.png"></image> -->
     </view>
-
+    <!-- 博客 文章 -->
+    <view class='works'>
+		<block  wx:for="{{works}}" wx:key="item">
+            <navigator url='../detail/detail?workId={{item.id}}'>
+                <view class="work-all">
+    				<image src='{{blogUrl}}/{{item.img}}' class="work-img" binderror="workImgloadError" mode="aspectFill" data-errorimg="{{index}}"></image>
+    				<view class="work-desc">
+    					<view class="work-title">{{item.title}}</view>
+    					<view class="work-cont">{{item.desc}}</view>
+    					<view class="work-sign">{{item.browse_num}}阅读量</view>
+    				</view>
+                </view>
+            </navigator>
+		</block>
+    </view>
 
 </view>

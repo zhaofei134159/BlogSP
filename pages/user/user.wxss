@@ -1,0 +1,68 @@
+/**user.wxss**/
+.all {
+	width:100%;
+	height:100%;
+	background:#eee;
+}
+.userinfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background:#F5DEB3;
+	padding:2rem;
+}
+.userinfo-avatar {
+	width: 3.5rem;
+	height: 3.5rem;
+	margin: 0.7rem;
+	border-radius: 50%;
+}
+.userinfo-nickname {
+	color: #808080;
+}
+.user-private{
+	width:100%;
+}
+.user-info{
+	width:100%;
+	background:#fff;
+}
+.user-title{
+	width:90%;
+	height:2.5rem;
+	border-bottom:solid 0.1rem #ccc;
+	line-height:2.5;
+	padding-left:0.5rem;
+	font-size:1rem;
+	margin:0 auto;
+}
+.user-cont{
+	width:100%;
+	font-size:0.9rem;
+	display: flex;
+	flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+}
+.user-tool{
+	margin-top:1rem;
+	width:100%;
+	background:#fff;
+}
+.usercont{
+	padding:0.25rem 0.2rem;
+	border-radius:0.2rem;
+	display:block;
+	margin:0.3rem;
+	margin-left: 1.9rem;
+	text-align:center;
+	/*background:#eee;*/
+}
+.resume{
+	width:4rem;
+	height:2.5rem;
+}
+.print{
+	width:3.5rem;
+	height:2.5rem;
+}

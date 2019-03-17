@@ -7,19 +7,26 @@ const app = getApp()
 Page({
 	data: {
 		'lun_ad':{},
+		'works':{},
 		'blogUrl':conf.blogUrl
 	},
 	// 首页展示数据
 	onLoad: function () {
 		var self = this;
 		util.request({
-			url:conf.detailUrl,
+			url:conf.homeUrl,
 		    data:{},
 		    method:'get',
 		    header:{'content-type': 'application/json'},
 		    success: function (callback) {
+		    	var Articles = callback.data.works;
+                for (var i = 0, len = Articles.length; i < len; i++) {
+                	var item = Articles[i];
+                    item.desc = util.delHtmlTag(item.desc);
+                }
 				self.setData({
-					lun_ad: callback.data.lun_ad
+					lun_ad: callback.data.lun_ad,
+					works: Articles
 				})
 		    }
 		})
@@ -29,5 +36,18 @@ Page({
 			current:0
 		})
 	},
+	workImgloadError:function(e){
+		var _errImg=e.target.dataset.errorimg;  
+ 		var imgObject="works["+_errImg+"].img"
+	    var _errObj={};  
+	    _errObj[imgObject]="public/public/workimg/2014312311231233123.jpg"; 
+	    this.setData(_errObj);
+	},
+	inputSearch:function(e){
+		console.log(e);
+		wx.navigateTo({
+	        url:"/pages/cate/cate"
+	    })
+	}
 })
 

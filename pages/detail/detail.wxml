@@ -1,0 +1,17 @@
+<import src="../../wxParse/wxParse.wxml"/>
+<!--home.wxml-->
+<view class="all">
+    <view class="work-img">
+        <image src='{{blogUrl}}/{{work.img}}' binderror="workImgloadError" mode="scaleToFill"></image>
+    </view>
+    <view class="word-cont">
+        <view class="work-title">{{work.title}}</view>
+        <view class="work-sign">
+            <text>阅读量：{{work.browse_num}}</text>
+            <text>发布时间：{{work.cdate}}</text>
+        </view>
+        <view class="work-desc">
+            <template is="wxParse" data="{{wxParseData:desc.nodes}}"/>
+        </view>
+    </view>
+</view>

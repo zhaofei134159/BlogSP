@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<view class="all">
+    <view class="userinfo">
+        <image class="userinfo-avatar" src="/resource/images/me.jpg" mode="cover"></image>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </view>
+    <view class="user-private">
+        <view class="user-info">
+            <view class="user-title">我的</view>
+            <view class="user-cont">
+                <view class="usercont">
+                    <image src="/resource/images/resume.png" class="resume"></image>
+                    <view>简历</view>
+                </view>
+            </view>
+        </view>
+        <view class="user-tool">
+            <view class="user-title">工具</view>
+            <view class="user-cont">
+                <view class="usercont">
+                    <image src="/resource/images/print.png" class="print"></image>
+                    <view>图片转文字</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+

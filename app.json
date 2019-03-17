@@ -1,8 +1,11 @@
 {
   "pages":[
     "pages/home/home",
-    "pages/logs/logs",
-    "pages/index/index"
+    "pages/user/user",
+    "pages/cate/cate",
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/logs/logs"
   ],
   "window":{
     "navigationBarBackgroundColor": "#fff",
@@ -19,19 +22,13 @@
     "list":[
       {
         "pagePath":"pages/home/home",
-        "text": "",
+        "text": "首页",
         "iconPath": "resource/images/home.png",
         "selectedIconPath": "resource/images/home-active.png"
       },
       {
-        "pagePath": "pages/logs/logs",
-        "text": "",
-        "iconPath": "resource/images/message.png",
-        "selectedIconPath": "resource/images/message-active.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "",
+        "pagePath": "pages/user/user",
+        "text": "个人中心",
         "iconPath": "resource/images/profile.png",
         "selectedIconPath": "resource/images/profile-active.png"
       }

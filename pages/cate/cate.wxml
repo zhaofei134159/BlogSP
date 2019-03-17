@@ -1,0 +1,39 @@
+<!--home.wxml-->
+<view class="all">
+    <!-- 搜索框 -->
+    <view class="section">
+        <input placeholder="搜索" class="search" confirm-type="search" bindconfirm="confirmSearch"/>
+        <!-- <icon class="searchcion" size='20' type='search'></icon> -->
+        <view class="search-cancel" bindtap="searchCancel">取消</view>
+    </view>
+    <!--轮播图  -->
+    <view wx:if="{{search==''&&tagId==''}}" class='tags'>
+        <view class="tags-title">热门搜索</view>
+        <view class="tags-cont">
+            <block wx:for="{{tags}}" wx:key="item">
+               <view class="tag" bindtap="tagSearch" data-id="{{item.id}}">{{item.name}}</view>
+            </block>  
+        </view>
+    </view>
+    <view wx:else class='works'>
+        <view class="works-tags">
+            <view class="works-tag {{tagId==0?'work-active':''}}"  bindtap="tagSearch" data-id="0">全部</view>
+            <block wx:for="{{tags}}" wx:key="item">
+               <view class="works-tag {{tagId==item.id?'work-active':''}}" bindtap="tagSearch" data-id="{{item.id}}">{{item.name}}</view>
+            </block>  
+        </view>
+        <block  wx:for="{{works}}" wx:key="item">
+            <navigator url='../detail/detail?workId={{item.id}}'>
+                <view class="work-all">
+                    <image src='{{blogUrl}}/{{item.img}}' class="work-img" binderror="workImgloadError" mode="aspectFill" data-errorimg="{{index}}"></image>
+                    <view class="work-desc">
+                        <view class="work-title">{{item.title}}</view>
+                        <view class="work-cont">{{item.desc}}</view>
+                        <view class="work-sign">{{item.browse_num}}阅读量</view>
+                    </view>
+                </view>
+            </navigator>
+        </block>
+    </view>
+
+</view>
