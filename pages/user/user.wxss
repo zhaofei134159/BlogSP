@@ -8,8 +8,8 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background:#F5DEB3;
-	padding:2rem;
+	background:#eee;
+	padding:0.5rem;
 }
 .userinfo-avatar {
 	width: 3.5rem;

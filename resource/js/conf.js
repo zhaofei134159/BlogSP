@@ -6,4 +6,5 @@ module.exports = {
     tagUrl: "https://blog.myfeiyou.com/interface/homeapp/tagList",
     searchUrl: "https://blog.myfeiyou.com/interface/homeapp/search",
     tagSearchUrl: "https://blog.myfeiyou.com/interface/homeapp/tagSearch",
+    getUserInfoUrl: "https://blog.myfeiyou.com/interface/userapp/getuserinfo",
 }

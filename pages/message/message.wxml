@@ -1,0 +1,11 @@
+<!--pages/message/message.wxml-->
+<view class="all">
+    <view></view> 
+
+    <view class="input-view">
+        <input placeholder="" class="send" confirm-type="send" />
+        <view class="input-chart">
+            <image src="/resource/images/add.png" class="add"></image>
+        </view>
+    </view>
+</view>
