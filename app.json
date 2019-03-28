@@ -29,7 +29,7 @@
         "selectedIconPath": "resource/images/home-active.png"
       },
       {
-        "pagePath":"pages/message/message",
+        "pagePath":"pages/userlist/userlist",
         "text": "聊天室",
         "iconPath": "resource/images/message.png",
         "selectedIconPath": "resource/images/message-active.png"

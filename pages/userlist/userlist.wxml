@@ -4,13 +4,13 @@
         <input placeholder="搜索" class="search" confirm-type="search" bindfocus="inputSearch"/>
     </view>
     <view class="userlist">
-        <view class="user">
-            <image class="user-avatar" src="/resource/images/me.jpg" mode="cover"></image>
+        <navigator class="user" url='../message/message?userId=0'>
+            <image class="user-avatar" src="/resource/images/admin.png" mode="cover"></image>
             <view class="user-info">
-                <text class="user-name">。。。。。。</text>
-                <text class="user-status">[离线请留言]</text>
+                <text class="user-name">系统管理员</text>
+                <text class="user-status">[在线]</text>
             </view>
-        </view>
+        </navigator>
         <view class="user">
             <image class="user-avatar" src="/resource/images/me.jpg" mode="cover"></image>
             <view class="user-info">
