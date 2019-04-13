@@ -16,7 +16,7 @@ Page({
     var self = this;
     if (app.globalData.userInfo) {
       this.setData({
-        userInfo: app.globalData.userInfo,
+        // userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
     } else if (this.data.canIUse){
@@ -24,7 +24,7 @@ Page({
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
         this.setData({
-          userInfo: res.userInfo,
+          // userInfo: res.userInfo,
           hasUserInfo: true
         })
       }

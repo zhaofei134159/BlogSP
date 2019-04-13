@@ -13,6 +13,13 @@ Page({
 	// 首页展示数据
 	onLoad: function () {
 		var self = this;
+	 	if (app.globalData.lun_ad&&app.globalData.works) {
+			this.setData({
+				lun_ad: app.globalData.lun_ad,
+				works: app.globalData.works
+			})
+			return '';
+		}
 		util.request({
 			url:conf.homeUrl,
 		    data:{},
@@ -24,6 +31,9 @@ Page({
                 	var item = Articles[i];
                     item.desc = util.delHtmlTag(item.desc);
                 }
+
+              	app.globalData.lun_ad = callback.data.lun_ad;
+              	app.globalData.works = Articles;
 				self.setData({
 					lun_ad: callback.data.lun_ad,
 					works: Articles
