@@ -34,14 +34,12 @@ Page({
 				newslist: list
 			})
 		})
+
 		console.log(app.globalData.userInfo);
 		var message = '{"content":"","toUserId":"'+userId+'","userId":"'+app.globalData.userInfo.weixin_openid+'","type":"text"}';
-		JSON.parse(message);
-		// var messageList = new Array();
-		// messageList.push(message);
-		console.log(message);
-		// console.log(messageList);
-		websocket.send(message);
+		var messageJson = JSON.parse(message);
+		console.log(messageJson);
+		websocket.send(messageJson);
 	},
 	onUnload(){
 		wx.closeSocket();

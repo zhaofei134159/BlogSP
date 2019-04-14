@@ -37,9 +37,21 @@ function connect(user,func) {
  
 //发送消息
 function send(msg) {
-	wx.sendSocketMessage({
-		data: msg
-	});
+	var socketOpen = false;
+	wx.onSocketOpen(function (res) {
+		console.log('WebSocket连接已打开！');
+		socketOpen = true;
+		console.log('数据发送中' + JSON.stringify(msg));
+
+		if(socketOpen){
+			wx.sendSocketMessage({
+				data: msg
+			});
+		}else{
+		  	console.log('WebSocket连接关闭！')
+		}
+	})
+
 }
 module.exports = {
 	connect: connect,
