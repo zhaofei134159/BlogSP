@@ -25,21 +25,22 @@ Page({
 		}
 		//调通接口
 		websocket.connect(this.data.userInfo, function (res) {
-			console.log(JSON.parse(res.data))
+			console.log(res);
+			// console.log(JSON.parse(res.data))
 
-			var list = []
-			list = self.data.newslist
-			list.push(JSON.parse(res.data))
-			self.setData({
-				newslist: list
-			})
+			// var list = []
+			// list = self.data.newslist
+			// list.push(JSON.parse(res.data))
+			// self.setData({
+			// 	newslist: list
+			// })
 		})
 
 		console.log(app.globalData.userInfo);
 		var message = '{"content":"","toUserId":"'+userId+'","userId":"'+app.globalData.userInfo.weixin_openid+'","type":"text"}';
-		var messageJson = JSON.parse(message);
-		console.log(messageJson);
-		websocket.send(messageJson);
+		// var messageJson = JSON.parse(message);
+		console.log(message);
+		websocket.send(message);
 	},
 	onUnload(){
 		wx.closeSocket();
