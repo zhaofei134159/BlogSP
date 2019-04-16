@@ -12,21 +12,20 @@ Page({
 		scrollTop: 0,
 		increase:false,//图片添加区域隐藏
 		aniStyle: true,//动画效果
-		message:"",
+		messageAll:"",
 		previewImgList:[]
 	},
 	onLoad: function (e) {
 		var userId = e.userId;
 		var self = this;
 		if (app.globalData.userInfo) {
-			this.setData({
+			self.setData({
 				userInfo: app.globalData.userInfo
 			})
 		}
-		// 先请求用户
 		
 		//调通接口
-		websocket.connect(this.data.userInfo, function (res) {
+		websocket.connect(self.data.userInfo, function (res) {
 			console.log(res);
 			// console.log(JSON.parse(res.data))
 
@@ -38,19 +37,12 @@ Page({
 			// })
 		})
 
-		console.log(app.globalData.userInfo);
+
 		var message = '{"content":"","toUserId":"'+userId+'","userId":"'+app.globalData.userInfo.weixin_openid+'","type":"text"}';
-		// var messageJson = JSON.parse(message);
-		console.log(message);
 		websocket.send(message);
 	},
-	onUnload(){
-		wx.closeSocket();
-		wx.showToast({
-			title: '连接已断开~',
-			icon: "none",
-			duration: 2000
-		})
+	onUnload:function(){
+		websocket.close();
 	},
 	//事件处理函数
 	send: function () {

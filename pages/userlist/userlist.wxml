@@ -65,7 +65,7 @@
         <view class="mask" catchtouchmove="maskmove"></view>
         <view class="grant">
             <view class="grant-user">
-                <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 点击登录 </button>
+                <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权登录 </button>
             </view>
         </view>
     </block>  

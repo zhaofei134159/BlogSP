@@ -28,6 +28,7 @@ function connect(user,func) {
 		wx.onSocketMessage(func);//func回调可以拿到服务器返回的数据
 
 		socketOpen = true;
+
 		for (let i = 0; i < socketMsgQueue.length; i++) {
 			send(socketMsgQueue[i]);
 		}
@@ -55,8 +56,22 @@ function send(msg) {
 	}
 }
 
+function close(){
+	wx.onSocketOpen(function () {
+	  	wx.closeSocket()
+		socketOpen = false;
+	})
+	
+	wx.showToast({
+		title: '连接已断开~',
+		icon: "none",
+		duration: 2000
+	})
+}
+
 
 module.exports = {
 	connect: connect,
+	close: close,
 	send: send
 }
