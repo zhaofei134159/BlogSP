@@ -23,6 +23,8 @@ Page({
 				userInfo: app.globalData.userInfo
 			})
 		}
+		// 先请求用户
+		
 		//调通接口
 		websocket.connect(this.data.userInfo, function (res) {
 			console.log(res);
