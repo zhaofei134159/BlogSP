@@ -27,6 +27,7 @@ Page({
 		    header:{'content-type': 'application/json'},
 		    success: function (callback) {
 		    	var Articles = callback.data.works;
+
                 for (var i = 0, len = Articles.length; i < len; i++) {
                 	var item = Articles[i];
                     item.desc = util.delHtmlTag(item.desc);
