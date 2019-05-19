@@ -86,6 +86,7 @@ Page({
               });
           }else{
               app.globalData.userInfo = callback.data.data;
+              wx.setStorageSync('userInfo_openid', callback.data.data.weixin_openid);
               self.setData({
                 userInfo: callback.data.data,
                 hasUserInfo: true

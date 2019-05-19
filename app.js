@@ -58,6 +58,7 @@ App({
           console.log(callback);
           if(callback.data.flag){
               self.globalData.userInfo = callback.data.data;
+              wx.setStorageSync('userInfo_openid', callback.data.data.weixin_openid);
           }
         }
     })

@@ -16,14 +16,12 @@ Page({
 		previewImgList:[]
 	},
 	onLoad: function (e) {
-		var userId = e.userId;
 		var self = this;
-		if (app.globalData.userInfo) {
-			self.setData({
-				userInfo: app.globalData.userInfo
-			})
-		}
-		
+
+		//  84 代表系统管理员
+		var userId = e.userId;
+		var login_wxopenid = wx.getStorageSync('userInfo_openid');
+
 		//调通接口
 		websocket.connect(self.data.userInfo, function (res) {
 			console.log(res);
@@ -37,8 +35,7 @@ Page({
 			// })
 		})
 
-
-		var message = '{"content":"","toUserId":"'+userId+'","userId":"'+app.globalData.userInfo.weixin_openid+'","type":"text"}';
+		var message = '{"content":"Hello","toUserId":"'+userId+'","userId":"'+login_wxopenid+'","type":"text"}';
 		websocket.send(message);
 	},
 	onUnload:function(){
