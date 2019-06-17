@@ -21,6 +21,7 @@ Page({
 		    method:'get',
 		    header:{'content-type': 'application/json'},
 		    success: function (callback) {
+		    	console.log(callback);
 				self.setData({
 					tags: callback.data.tags,
 				})
@@ -69,6 +70,7 @@ Page({
 		this.onLoad()
 	},
 	tagSearch:function(e){
+		console.log(e);
 		var tagId = e.target.dataset.id;
 	 	this.setData({
 	 		tagId:tagId

@@ -3,7 +3,7 @@
     <view></view> 
 
     <view class="input-view">
-        <input placeholder="" class="send" confirm-type="send" />
+        <input placeholder="输入内容" class="send" confirm-type="send" bindconfirm="send" bindinput="bindChange"/>
         <view class="input-chart">
             <image src="/resource/images/add.png" class="add"></image>
         </view>

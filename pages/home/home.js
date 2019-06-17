@@ -26,6 +26,7 @@ Page({
 		    method:'get',
 		    header:{'content-type': 'application/json'},
 		    success: function (callback) {
+		    	console.log(callback.data);
 		    	var Articles = callback.data.works;
 
                 for (var i = 0, len = Articles.length; i < len; i++) {

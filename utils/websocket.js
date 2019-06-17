@@ -5,10 +5,11 @@ var conf = require('../resource/js/conf.js'),
 var socketOpen = false;
 var socketMsgQueue = [];
 
-function connect(user,func) {
+function connect(user,token,func) {
 	wx.connectSocket({
 		url: conf.webSocketUrl,
-		header:{'content-type': 'application/json'},
+		data: JSON.stringify({token: token}),
+		header:{'content-type': 'application/json;charset=utf-8'},
 		success: function () {
 			console.log('信道连接成功~')
 		},

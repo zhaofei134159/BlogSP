@@ -45,7 +45,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    token: 'zhaofei'
   },
   getUserData:function(userinfo,code){
     var self = this;

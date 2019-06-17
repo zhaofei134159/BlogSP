@@ -7,23 +7,25 @@ var conf = require('../../resource/js/conf.js'),
 var app = getApp();
 Page({
 	data: {
+		toUserId:'',
+		login_wxopenid:'',
 		newslist:[],
 		userInfo: {},
 		scrollTop: 0,
 		increase:false,//图片添加区域隐藏
 		aniStyle: true,//动画效果
-		messageAll:"",
+		message:"",
 		previewImgList:[]
 	},
 	onLoad: function (e) {
 		var self = this;
-
-		//  84 代表系统管理员
-		var userId = e.userId;
-		var login_wxopenid = wx.getStorageSync('userInfo_openid');
+		this.setData({
+			toUserId: e.userId,
+			login_wxopenid:  wx.getStorageSync('userInfo_openid')
+		})
 
 		//调通接口
-		websocket.connect(self.data.userInfo, function (res) {
+		websocket.connect(self.data.userInfo,app.globalData.token,function (res) {
 			console.log(res);
 			// console.log(JSON.parse(res.data))
 
@@ -35,8 +37,8 @@ Page({
 			// })
 		})
 
-		var message = '{"content":"Hello","toUserId":"'+userId+'","userId":"'+login_wxopenid+'","type":"text"}';
-		websocket.send(message);
+		// var message = '{"content":"","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"text"}';
+		// websocket.send(message);
 	},
 	onUnload:function(){
 		websocket.close();
@@ -56,8 +58,8 @@ Page({
 					increase: false
 				})
 			},500)
-			websocket.send('{ "content": "' + this.data.message + '", "date": "' + utils.formatTime(new Date()) + '","type":"text", "nickName": "' + this.data.userInfo.nickName + '", "avatarUrl": "' + this.data.userInfo.avatarUrl+'" }')
-			this.bottom()
+			websocket.send('{ "content": "' + this.data.message + '","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"text"}')
+			// this.bottom()
 		}
 	},
 	//监听input值的改变
