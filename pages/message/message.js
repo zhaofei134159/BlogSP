@@ -63,12 +63,12 @@ Page({
 		}
 	},
 	//监听input值的改变
-	bindChange(res) {
+	bindChange:function(res) {
 		this.setData({
 			message : res.detail.value
 		})
 	},
-	chooseImage() {
+	chooseImage:function() {
 		var that = this
 		wx.chooseImage({
 			count: 1, // 默认9
@@ -99,7 +99,7 @@ Page({
 		})
 	},
 	//图片预览
-	previewImg(e){
+	previewImg:function(e){
 		var that = this
 		//必须给对应的wxml的image标签设置data-set=“图片路径”，否则接收不到
 		var res = e.target.dataset.src
