@@ -10,6 +10,7 @@ function connect(user,token,func) {
 		url: conf.webSocketUrl,
 		data: JSON.stringify({token: token}),
 		header:{'content-type': 'application/json;charset=utf-8'},
+		method:'post',
 		success: function () {
 			console.log('信道连接成功~')
 		},
@@ -30,11 +31,12 @@ function connect(user,token,func) {
 
 		socketOpen = true;
 
-		for (let i = 0; i < socketMsgQueue.length; i++) {
-			send(socketMsgQueue[i]);
-		}
-		socketMsgQueue = [];
-		 
+		// if(socketMsgQueue.length==0){
+		// 	for (let i = 0; i < socketMsgQueue.length; i++) {
+		// 		send(socketMsgQueue[i]);
+		// 	}
+		// 	socketMsgQueue = [];
+		// }
 	});
  
 	wx.onSocketError(function (res) {
