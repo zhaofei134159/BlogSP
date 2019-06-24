@@ -8,15 +8,6 @@ var socketMsgQueue = [];
 function connect(user,token,func) {
 	wx.connectSocket({
 		url: conf.webSocketUrl,
-		data: JSON.stringify({token: token}),
-		header:{'content-type': 'application/json;charset=utf-8'},
-		method:'post',
-		success: function () {
-			console.log('信道连接成功~')
-		},
-		fail: function () {
-			console.log('信道连接失败~')
-		}
 	})
  
 	wx.onSocketOpen(function (res) {
