@@ -11,6 +11,7 @@ function connect(user,func) {
 	})
  
 	wx.onSocketOpen(function (res) {
+        heartCheck.reset().start();
 		wx.showToast({
 			title: '信道已开通~',
 			icon: "success",
@@ -64,8 +65,33 @@ function close(){
 }
 
 
+//心跳检测
+var heartCheck = {
+    timeout: 240000,   //  4分钟心跳一下       
+    timeoutObj: null,
+    serverTimeoutObj: null,
+    reset: function(){
+        clearTimeout(this.timeoutObj);
+        clearTimeout(this.serverTimeoutObj);
+        return this;
+    },
+    start: function(){
+        var self = this;
+        this.timeoutObj = setTimeout(function(){
+            send("ping");
+            console.log("ping!")
+            self.serverTimeoutObj = setTimeout(function(){
+                close();     
+            }, self.timeout)
+        }, this.timeout)
+    }
+}
+
+
+
 module.exports = {
 	connect: connect,
 	close: close,
-	send: send
+	send: send,
+	heartCheck:heartCheck
 }

@@ -26,6 +26,7 @@ Page({
 
 		//调通接口
 		websocket.connect(self.data.userInfo,function (res) {
+        	websocket.heartCheck.reset().start();
 			console.log(res);
 			if(res.flog==5){
 				console.log(JSON.parse(res.result));
@@ -40,9 +41,6 @@ Page({
 	},
 	onUnload:function(){
 		websocket.close();
-		websocket.connect(self.data.userInfo,function (res) {
-			console.log(res);
-		})
 	},
 	//事件处理函数
 	send: function () {
