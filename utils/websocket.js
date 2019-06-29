@@ -5,7 +5,7 @@ var conf = require('../resource/js/conf.js'),
 var socketOpen = false;
 var socketMsgQueue = [];
 
-function connect(user,token,func) {
+function connect(user,func) {
 	wx.connectSocket({
 		url: conf.webSocketUrl,
 	})

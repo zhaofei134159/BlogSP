@@ -25,23 +25,24 @@ Page({
 		})
 
 		//调通接口
-		websocket.connect(self.data.userInfo,app.globalData.token,function (res) {
+		websocket.connect(self.data.userInfo,function (res) {
 			console.log(res);
-			// console.log(JSON.parse(res.data))
-
-			// var list = []
-			// list = self.data.newslist
-			// list.push(JSON.parse(res.data))
-			// self.setData({
-			// 	newslist: list
-			// })
+			if(res.flog==5){
+				console.log(JSON.parse(res.result));
+				var list = [];
+				list = self.data.newslist;
+				list.push(JSON.parse(res.result))
+				self.setData({
+					newslist: list
+				})
+			}
 		})
-
-		// var message = '{"content":"","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"text"}';
-		// websocket.send(message);
 	},
 	onUnload:function(){
 		websocket.close();
+		websocket.connect(self.data.userInfo,function (res) {
+			console.log(res);
+		})
 	},
 	//事件处理函数
 	send: function () {
