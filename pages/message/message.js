@@ -23,21 +23,30 @@ Page({
 			toUserId: e.userId,
 			login_wxopenid:  wx.getStorageSync('userInfo_openid')
 		})
+		console.log(this.data.userInfo);
 
 		//调通接口
 		websocket.connect(self.data.userInfo,function (res) {
+			// 心跳
         	websocket.heartCheck.reset().start();
-			console.log(res);
-			if(res.flog==5){
-				console.log(JSON.parse(res.result));
-				var list = [];
-				list = self.data.newslist;
-				list.push(JSON.parse(res.result))
-				self.setData({
-					newslist: list
-				})
+
+        	var result = JSON.parse(res.data);
+
+			var list = [];
+			list = self.data.newslist;
+			if(result.flog==5){
+				list.push(result.result)
 			}
+			self.setData({
+				newslist: list
+			})
+			console.log(self.data.newslist);
 		})
+
+		// 发送消息 查看之前的聊天记录
+		websocket.send('{ "content": "old message","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"record"}');
+
+
 	},
 	onUnload:function(){
 		websocket.close();

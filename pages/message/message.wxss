@@ -19,7 +19,9 @@
   margin:0.5rem;
   background:#fff;
   border-radius:0.3rem;
-  display: flex;
+  /*display:flex;*/
+  text-align:left;
+  padding-left:0.7rem;
 }
 .input-chart{
   width:17%;
@@ -34,4 +36,52 @@
   height:1.5rem;
   line-height:1.7rem;
   margin:0.8rem 0rem 0rem 0.8rem;
+}
+
+/*对话框*/
+.chat-box{
+  border:solid 0.15rem #ccc;
+  border-bottom:none;
+  margin:0rem 0.3rem;
+  min-height:40rem;
+}
+.chat-user-msg{
+  width:100%;
+}
+.someone{
+  float:left;
+}
+.me{
+  float:right;
+}
+.chat-user{
+  height:2rem;
+  width:2rem;
+  margin:0.8rem 0.5rem;
+}
+.chat-msg {
+  position: relative;
+  width: 150px;
+  min-height: 50px;
+  background: #25a23b;
+  border-radius: 5px;
+  line-height: 50px;
+  margin-left: 10px;
+  word-break: break-word;
+  color: white;
+  padding: 5px;
+  line-height: 18px;
+  width:50%;
+  margin:0.8rem 0.2rem 0rem;
+}
+.chat-msg::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-right-color: #25a23b;
+  top: 15px;
+  left: -14px;
 }

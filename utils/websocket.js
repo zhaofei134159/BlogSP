@@ -23,12 +23,12 @@ function connect(user,func) {
 
 		socketOpen = true;
 
-		// if(socketMsgQueue.length==0){
-		// 	for (let i = 0; i < socketMsgQueue.length; i++) {
-		// 		send(socketMsgQueue[i]);
-		// 	}
-		// 	socketMsgQueue = [];
-		// }
+		if(socketMsgQueue.length>=0){
+			for (let i = 0; i < socketMsgQueue.length; i++) {
+				send(socketMsgQueue[i]);
+			}
+			socketMsgQueue = [];
+		}
 	});
  
 	wx.onSocketError(function (res) {
@@ -67,7 +67,7 @@ function close(){
 
 //心跳检测
 var heartCheck = {
-    timeout: 240000,   //  4分钟心跳一下       
+    timeout: 120000,   //  2分钟心跳一下       
     timeoutObj: null,
     serverTimeoutObj: null,
     reset: function(){
@@ -79,7 +79,7 @@ var heartCheck = {
         var self = this;
         this.timeoutObj = setTimeout(function(){
             send("ping");
-            console.log("ping!")
+            // console.log("ping!")
             self.serverTimeoutObj = setTimeout(function(){
                 close();     
             }, self.timeout)
