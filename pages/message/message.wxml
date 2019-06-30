@@ -2,29 +2,20 @@
 <view class="all">
     <view class="chat-box">
 	    <block  wx:for="{{newslist}}" wx:key="item">
-	    	<view class="chat-user-msg">
-	    		<view wx:if="{{item.userid==84}}" class="chat-user someone">
-	            	<image src="/resource/images/admin.png"></image>
-	            </view>
-	    		<view wx:else class="chat-user someone">
-	            	<image src="{{}}"></image>
-	            </view>
-	            <view class="chat-msg someone">
-	            	 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿
-	            </view>
+	    	<view wx:if="{{item.userid!=userInfo.id}}" class="chat-user-msg">
+            	<image src="{{blogUrl}}/{{item.usHeadimg}}"  class="chat-user someone"></image>
+	            <text class="chat-msg someone">{{item.content}}</text>
 	    	</view>
 
-	    	<view class="chat-user-msg">
-	            <image src="/resource/images/admin.png" class="chat-user me"></image>
-	            <view class="chat-msg me">
-	            	 嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿嘿
-	            </view>
+	    	<view wx:else class="chat-user-msg">
+          		<image src="{{blogUrl}}/{{item.usHeadimg}}"  class="chat-user me"></image>
+	            <text class="chat-msg me">{{item.content}}</text>
 	    	</view>
 	    </block>
     </view> 
 
     <view class="input-view">
-        <input placeholder="输入内容" class="send" confirm-type="send" bindconfirm="send" bindinput="bindChange"/>
+        <input placeholder="输入内容" value="{{message}}" class="send" confirm-type="send" bindconfirm="send" bindinput="bindChange" />
         <view class="input-chart">
             <image src="/resource/images/add.png" class="add"></image>
         </view>

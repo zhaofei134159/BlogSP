@@ -7,20 +7,22 @@ var conf = require('../../resource/js/conf.js'),
 var app = getApp();
 Page({
 	data: {
-		toUserId:'',
-		login_wxopenid:'',
-		newslist:[],
-		userInfo: {},
-		scrollTop: 0,
-		increase:false,//图片添加区域隐藏
-		aniStyle: true,//动画效果
-		message:"",
-		previewImgList:[]
+		'toUserId':'',
+		'login_wxopenid':'',
+		'newslist':[],
+		'userInfo': {},
+		'scrollTop': 0,
+		'increase':false,//图片添加区域隐藏
+		'aniStyle': true,//动画效果
+		'message':"",
+		'previewImgList':[],
+		'blogUrl':conf.blogUrl
 	},
 	onLoad: function (e) {
 		var self = this;
 		this.setData({
 			toUserId: e.userId,
+			userInfo: app.globalData.userInfo,
 			login_wxopenid:  wx.getStorageSync('userInfo_openid')
 		})
 		console.log(this.data.userInfo);
@@ -40,7 +42,6 @@ Page({
 			self.setData({
 				newslist: list
 			})
-			console.log(self.data.newslist);
 		})
 
 		// 发送消息 查看之前的聊天记录
@@ -52,7 +53,7 @@ Page({
 		websocket.close();
 	},
 	//事件处理函数
-	send: function () {
+	send: function (res) {
 		var flag = this
 		if (this.data.message.trim() == ""){
 			wx.showToast({
@@ -66,8 +67,13 @@ Page({
 					increase: false
 				})
 			},500)
+
 			websocket.send('{ "content": "' + this.data.message + '","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"text"}')
-			// this.bottom()
+			
+			// 清空input
+			this.setData({
+				message : ''
+			})
 		}
 	},
 	//监听input值的改变
