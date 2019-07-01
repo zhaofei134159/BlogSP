@@ -44,6 +44,7 @@
   border-bottom:none;
   margin:0rem 0.3rem;
   min-height:40rem;
+  padding-bottom:4rem;
 }
 .chat-user-msg{
   width:100%;
@@ -57,7 +58,7 @@
 .chat-user{
   height:2rem;
   width:2rem;
-  margin:0.8rem 0.5rem;
+  margin:0.59rem 0.5rem;
   border: solid 0.05rem #ddd;
 }
 .chat-msg {
