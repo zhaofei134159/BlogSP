@@ -1,10 +1,11 @@
 <!--pages/message/message.wxml-->
 <view class="all">
-    <view class="chat-box">
+    <view id="chat-box">
 	    <block  wx:for="{{newslist}}" wx:key="item">
 	    	<view wx:if="{{item.userid!=userInfo.id}}" class="chat-user-msg">
             	<image src="{{blogUrl}}/{{item.usHeadimg}}"  class="chat-user someone"></image>
-	            <text class="chat-msg someone">{{item.content}}</text>
+                <view wx:if="{{item.msg_type=='work'}}" class="chat-msg someone"><navigator url='../detail/detail?workId={{item.content.id}}' class="link">{{item.content.title}}</navigator></view>
+	            <text wx:else class="chat-msg someone">{{item.content}}</text>
 	    	</view>
 
 	    	<view wx:else class="chat-user-msg">

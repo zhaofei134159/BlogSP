@@ -37,14 +37,17 @@
   line-height:1.7rem;
   margin:0.8rem 0rem 0rem 0.8rem;
 }
+.link{
+  color:blue;
+}
 
 /*对话框*/
-.chat-box{
+#chat-box{
   border:solid 0.15rem #ccc;
   border-bottom:none;
   margin:0rem 0.3rem;
-  min-height:40rem;
-  padding-bottom:4rem;
+  min-height:10rem;
+  margin-bottom:3.4rem;
 }
 .chat-user-msg{
   width:100%;

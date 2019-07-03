@@ -13,7 +13,6 @@ Page({
 	},
 	// 首页展示数据
 	onLoad: function (options) {
-		console.log(options);
 		var workId = options.workId;
 	
 		var self = this;

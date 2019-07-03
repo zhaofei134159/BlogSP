@@ -67,7 +67,7 @@ function close(){
 
 //心跳检测
 var heartCheck = {
-    timeout: 120000,   //  2分钟心跳一下       
+    timeout: 10000,   //  10秒 心跳一下       
     timeoutObj: null,
     serverTimeoutObj: null,
     reset: function(){

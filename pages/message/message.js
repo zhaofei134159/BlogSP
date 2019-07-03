@@ -42,12 +42,11 @@ Page({
 			self.setData({
 				newslist: list
 			})
+			self.bottom();
 		})
 
 		// 发送消息 查看之前的聊天记录
 		websocket.send('{ "content": "old message","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"record"}');
-
-
 	},
 	onUnload:function(){
 		websocket.close();
@@ -74,6 +73,7 @@ Page({
 			this.setData({
 				message : ''
 			})
+			this.bottom();
 		}
 	},
 	//监听input值的改变
@@ -130,7 +130,7 @@ Page({
 	//聊天消息始终显示最底端
 	bottom: function () {
 		var query = wx.createSelectorQuery()
-		query.select('#flag').boundingClientRect()
+		query.select('#chat-box').boundingClientRect()
 		query.selectViewport().scrollOffset()
 		query.exec(function (res) {
 			wx.pageScrollTo({
