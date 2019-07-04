@@ -3,18 +3,28 @@
   width:100%;
   height:100%;
 }
+.margin-top-0{
+  margin-top:0rem;
+}
 .input-view{
   position:fixed;
-  bottom:0rem;
   width:100%;
   height:3rem;
   background:#eee;
   text-align:center;
   display: flex;
   margin:0 auto;
+  border-top:solid 0.01rem #ccc;
+  border-bottom:solid 0.01rem #ccc;
+}
+.input-view-bottom{
+  bottom:0rem;
+}
+.input-view-bottom-active{
+  bottom:10rem;
 }
 .send{
-  width:78%;
+  width:73%;
   height:2rem;
   margin:0.5rem;
   background:#fff;
@@ -35,19 +45,59 @@
   width:1.5rem;
   height:1.5rem;
   line-height:1.7rem;
-  margin:0.8rem 0rem 0rem 0.8rem;
+  margin:0.8rem 0rem 0rem 1rem;
+}
+.sub{
+  color:white;
+  background:#00cc00;
+  width:7rem;
+  height:2rem;
+  margin-top:0.5rem;
+  font-size:.71rem;
+  padding-top:0.1rem;
 }
 .link{
   color:blue;
 }
+.Tags{
+  width:100%;
+  height:10rem;
+  background:#eee;
+  position:fixed;
+  bottom:0px;
+}
+.tag-view{
+  display:inline-block;
+  float: left;
+  margin:0.6rem 1rem;
+  margin-bottom:0rem;
+}
+.tag-text{
+  text-align: center;
+  font-size: 0.6rem
+}
+.tagAdd{
+  width:3rem;
+  height:3rem;
+}
+.msgimage{
+  width:5rem;
+  height:5rem;
+}
 
 /*对话框*/
 #chat-box{
-  border:solid 0.15rem #ccc;
+  /*border:solid 0.15rem #ccc;*/
   border-bottom:none;
-  margin:0rem 0.3rem;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
   min-height:10rem;
+}
+.chat-box-margin-bottom{
   margin-bottom:3.4rem;
+}
+.chat-box-margin-bottom-active{
+  margin-bottom:13.4rem;
 }
 .chat-user-msg{
   width:100%;
@@ -77,4 +127,6 @@
   line-height: 18px;
   width:50%;
   margin:0.8rem 0.2rem 0rem;
+  text-align:center;
+  font-size:.9rem;
 }

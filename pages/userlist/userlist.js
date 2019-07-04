@@ -1,7 +1,8 @@
 // 配置js
 var conf = require('../../resource/js/conf.js'),
     util = require('../../utils/util.js'),
-    WxParse = require('../../wxParse/wxParse.js');
+    WxParse = require('../../wxParse/wxParse.js'),
+    websocket = require('../../utils/websocket.js');
 
 //获取应用实例
 const app = getApp()
@@ -48,6 +49,9 @@ Page({
           }
       });
     }
+  },
+  onShow:function(e){
+    websocket.close();
   },
   maskmove:function(){},
   getUserInfo: function(e) {

@@ -1,6 +1,6 @@
 <!--pages/message/message.wxml-->
 <view class="all">
-    <view id="chat-box">
+    <view id="chat-box" class="{{inputViewBottom ? 'chat-box-margin-bottom-active' : 'chat-box-margin-bottom'}}"> 
 	    <block  wx:for="{{newslist}}" wx:key="item">
 	    	<view wx:if="{{item.userid!=userInfo.id}}" class="chat-user-msg">
             	<image src="{{blogUrl}}/{{item.usHeadimg}}"  class="chat-user someone"></image>
@@ -10,15 +10,56 @@
 
 	    	<view wx:else class="chat-user-msg">
           		<image src="{{blogUrl}}/{{item.usHeadimg}}"  class="chat-user me"></image>
-	            <text class="chat-msg me">{{item.content}}</text>
+                <view wx:if="{{item.msg_type=='image'}}" class="chat-msg me">
+                    <image src="{{blogUrl}}/{{item.content}}" data-set="{{blogUrl}}/{{item.content}}" class="msgimage" bindtap="previewImg"></image>
+                </view>
+	            <text wx:else class="chat-msg me">{{item.content}}</text>
 	    	</view>
 	    </block>
     </view> 
 
-    <view class="input-view">
+    <view class="input-view {{inputViewBottom ? 'input-view-bottom-active' : 'input-view-bottom'}}">
         <input placeholder="输入内容" value="{{message}}" class="send" confirm-type="send" bindconfirm="send" bindinput="bindChange" />
-        <view class="input-chart">
-            <image src="/resource/images/add.png" class="add"></image>
+        <view wx:if="{{message==''}}"  class="input-chart">
+            <image src="/resource/images/add.png" class="add" id="tagsShow" bindtap="tagsShow"></image>
+        </view>   
+        <view wx:else  class="input-chart">
+            <button class="sub" bindtap="send"> 发 送 </button>
         </view>
+    </view>
+    <view wx:if="{{increase}}" class="Tags" id="Tags">
+        <view class="tag-view">
+            <image src="/resource/images/addImage.png" class="tagAdd" bindtap="chooseImage"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view><!-- 
+        <view class="tag-view">
+            <image src="/resource/images/addImage.png" class="tagAdd"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view>
+        <view class="tag-view">
+            <image src="/resource/images/addImage.png" class="tagAdd"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view>
+        <view class="tag-view">
+            <image src="/resource/images/addImage.png" class="tagAdd"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view>
+
+        <view class="tag-view margin-top-0">
+            <image src="/resource/images/addImage.png" class="tagAdd"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view>
+        <view class="tag-view margin-top-0">
+            <image src="/resource/images/addImage.png" class="tagAdd"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view>
+        <view class="tag-view margin-top-0">
+            <image src="/resource/images/addImage.png" class="tagAdd"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view>
+        <view class="tag-view margin-top-0">
+            <image src="/resource/images/addImage.png" class="tagAdd"></image>
+            <view class="tag-text"> 相 册 </view>
+        </view> -->
     </view>
 </view>

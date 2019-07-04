@@ -52,16 +52,21 @@ function send(msg) {
 }
 
 function close(){
-	wx.onSocketOpen(function () {
+    console.log(1312)
+	wx.onSocketOpen(function (e) {
+		console.log(3123123);
 	  	wx.closeSocket()
 		socketOpen = false;
 	})
-	
-	wx.showToast({
-		title: '连接已断开~',
-		icon: "none",
-		duration: 2000
+
+	wx.onSocketClose(function(res) {
+		wx.showToast({
+			title: '连接断开~',
+			icon: "none",
+			duration: 2000
+		})
 	})
+	
 }
 
 

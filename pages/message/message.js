@@ -13,6 +13,7 @@ Page({
 		'userInfo': {},
 		'scrollTop': 0,
 		'increase':false,//图片添加区域隐藏
+		'inputViewBottom':0,
 		'aniStyle': true,//动画效果
 		'message':"",
 		'previewImgList':[],
@@ -93,18 +94,20 @@ Page({
 				var tempFilePaths = res.tempFilePaths
 				// console.log(tempFilePaths)
 				wx.uploadFile({
-					url: 'http://.....', //服务器地址
+					url: conf.setMesssageImageUrl, //服务器地址
 					filePath: tempFilePaths[0],
 					name: 'file',
 					headers: {
 						'Content-Type': 'form-data'
 					},
 					success: function (res) {
+						console.log(res);
 						if (res.data){
 							that.setData({
-								increase: false
+								'increase': false,
+								'inputViewBottom': 0
 							})
-							websocket.send('{"images":"'+ res.data +'","date":"'+utils.formatTime(new Date())+'","type":"image","nickName":"'+that.data.userInfo.nickName+'","avatarUrl":"'+that.data.userInfo.avatarUrl+'"}')
+							websocket.send('{ "content": "' +  res.data + '","toUserId":"'+that.data.toUserId+'","userId":"'+that.data.login_wxopenid+'","type":"image"}')
 							that.bottom()
 						}
 					}
@@ -114,9 +117,10 @@ Page({
 	},
 	//图片预览
 	previewImg:function(e){
+		console.log(e);
 		var that = this
 		//必须给对应的wxml的image标签设置data-set=“图片路径”，否则接收不到
-		var res = e.target.dataset.src
+		var res = e.target.dataset.set
 		var list = this.data.previewImgList //页面的图片集合数组
 		//判断res在数组中是否存在，不存在则push到数组中, -1表示res不存在
 		if (list.indexOf(res) == -1 ) {
@@ -133,11 +137,27 @@ Page({
 		query.select('#chat-box').boundingClientRect()
 		query.selectViewport().scrollOffset()
 		query.exec(function (res) {
+			if(res[0]==null){
+				return 'error';
+			}
 			wx.pageScrollTo({
 				scrollTop: res[0].bottom // #the-id节点的下边界坐标
 			})
 			res[1].scrollTop // 显示区域的竖直滚动位置
 		})
-	 
+	},
+	tagsShow:function(res){
+		// tag显示
+		var increase = true;
+		var inputViewBottom = 1;
+		if(this.data.increase){
+			increase = false;
+			inputViewBottom = 0
+		}
+		this.setData({
+			'increase': increase,
+			'inputViewBottom': inputViewBottom
+		})
+		this.bottom();
 	}
 })

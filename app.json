@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/home/home",
     "pages/userlist/userlist",
+    "pages/home/home",
     "pages/message/message",
     "pages/user/user",
     "pages/cate/cate",
@@ -23,7 +23,7 @@
     "selectedColor": "#333",
     "list": [
       {
-        "pagePath": "pages/home/home",
+        "pagePath": "pages/userlist/userlist",
         "text": "首页",
         "iconPath": "resource/images/home.png",
         "selectedIconPath": "resource/images/home-active.png"
