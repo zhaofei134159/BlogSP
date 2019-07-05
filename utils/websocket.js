@@ -52,11 +52,16 @@ function send(msg) {
 }
 
 function close(){
-    console.log(1312)
-	wx.onSocketOpen(function (e) {
+    console.log(socketOpen);
+	// wx.onSocketOpen(function (e) {
 		console.log(3123123);
-	  	wx.closeSocket()
+	  	wx.closeSocket();
 		socketOpen = false;
+	// });
+
+ 
+	wx.onSocketError(function (res) {
+		console.log(res);
 	})
 
 	wx.onSocketClose(function(res) {
