@@ -52,12 +52,19 @@ function send(msg) {
 }
 
 function close(){
+	heartCheck.reset()
     console.log(socketOpen);
-	// wx.onSocketOpen(function (e) {
+    if(socketOpen){
+		// wx.onSocketOpen(function (e) {
 		console.log(3123123);
-	  	wx.closeSocket();
+	  	wx.closeSocket({
+	  		complete: function(res){
+	  			console.log(res);
+	  		}
+	  	});
 		socketOpen = false;
-	// });
+		// });
+    }
 
  
 	wx.onSocketError(function (res) {
