@@ -68,6 +68,10 @@ Page({
 				})
 			},500)
 
+			// 重连
+			websocket.reconnect();
+
+			// 发消息
 			websocket.send('{ "content": "' + this.data.message + '","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"text"}')
 			
 			// 清空input
@@ -107,6 +111,10 @@ Page({
 								'increase': false,
 								'inputViewBottom': 0
 							})
+
+							// 重连
+							websocket.reconnect();
+
 							websocket.send('{ "content": "' +  res.data + '","toUserId":"'+that.data.toUserId+'","userId":"'+that.data.login_wxopenid+'","type":"image"}')
 							that.bottom()
 						}

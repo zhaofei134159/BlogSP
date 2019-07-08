@@ -39,6 +39,14 @@ function connect(user,func) {
 		})
 	})
 }
+
+function reconnect(){
+	wx.onSocketClose(function(res) {
+		wx.connectSocket({
+			url: conf.webSocketUrl,
+		})
+	});
+}
  
 //发送消息
 function send(msg) {
@@ -52,21 +60,17 @@ function send(msg) {
 }
 
 function close(){
-	heartCheck.reset()
-    console.log(socketOpen);
-    if(socketOpen){
-		// wx.onSocketOpen(function (e) {
-		console.log(3123123);
-	  	wx.closeSocket({
-	  		complete: function(res){
-	  			console.log(res);
-	  		}
-	  	});
-		socketOpen = false;
-		// });
-    }
+	heartCheck.reset();
 
- 
+	wx.onSocketOpen(function (e) {
+		wx.closeSocket({
+			complete: function(res){
+				console.log(res);
+			}
+		});
+		socketOpen = false;
+	});
+
 	wx.onSocketError(function (res) {
 		console.log(res);
 	})
@@ -110,5 +114,6 @@ module.exports = {
 	connect: connect,
 	close: close,
 	send: send,
-	heartCheck:heartCheck
+	heartCheck:heartCheck,
+	reconnect:reconnect
 }
