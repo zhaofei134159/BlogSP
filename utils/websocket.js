@@ -8,6 +8,8 @@ var serverInterObj = null;
 var socketMsgQueue = [];
 
 function connect(user,func) {
+	socketOpen = false;
+	console.log('链接：'+socketOpen);
 	wx.connectSocket({
 		url: conf.webSocketUrl,
 	})
@@ -35,6 +37,7 @@ function connect(user,func) {
  
 	wx.onSocketError(function (res) {
 		console.log(res);
+		reconnect();
 		wx.showToast({
 			title: '信道连接失败，请检查！',
 			icon: "none",
@@ -44,6 +47,7 @@ function connect(user,func) {
 }
 
 function reconnect(){
+	console.log('重连：'+socketOpen);
 	if (lockReconnect){
 		console.log('正在重连');
 		return false;
@@ -58,6 +62,7 @@ function reconnect(){
  
 //发送消息
 function send(msg) {
+	console.log('发送：'+socketOpen);
 	if(socketOpen){
 		wx.sendSocketMessage({
 			data: msg
@@ -68,9 +73,6 @@ function send(msg) {
 }
 
 function close(){
-	heartCheck.reset();
-
-	clearInterval(serverInterObj);
 	wx.onSocketOpen(function (e) {
 		wx.closeSocket({
 			complete: function(res){
@@ -97,7 +99,7 @@ function close(){
 
 //心跳检测
 var heartCheck = {
-    timeout: 200000,   //  10秒 心跳一下       
+    timeout: 10000,   //  10秒 心跳一下       
     timeoutObj: null,
     serverTimeoutObj: null,
     reset: function(){
@@ -123,6 +125,7 @@ module.exports = {
 	connect: connect,
 	close: close,
 	send: send,
+	socketOpen:socketOpen,
 	heartCheck:heartCheck,
 	reconnect:reconnect
 }

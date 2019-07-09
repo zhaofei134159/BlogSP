@@ -98,6 +98,12 @@ Page({
           }
         }
     })
+  },
+  inputSearch:function(e){
+    console.log(e);
+    wx.navigateTo({
+          url:"/pages/cate/cate"
+      })
   }
 })
 

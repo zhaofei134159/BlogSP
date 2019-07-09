@@ -7,6 +7,7 @@ var conf = require('../../resource/js/conf.js'),
 var app = getApp();
 Page({
 	data: {
+		'Bartitle':'相伴一生',
 		'toUserId':'',
 		'login_wxopenid':'',
 		'newslist':[],
@@ -21,8 +22,13 @@ Page({
 	},
 	onLoad: function (e) {
 		var self = this;
+		var Bartitle = this.data.Bartitle;
+		if(e.userId==84){
+			var Bartitle = '系统管理员';
+		}
 		this.setData({
 			toUserId: e.userId,
+			Bartitle: Bartitle,
 			userInfo: app.globalData.userInfo,
 			login_wxopenid:  wx.getStorageSync('userInfo_openid')
 		})
@@ -38,8 +44,20 @@ Page({
 			var list = [];
 			list = self.data.newslist;
 			if(result.flog==5){
-				list.push(result.result)
+				list.push(result.result);
+			}else if(result.flog==-1){
+				websocket.heartCheck.reset();
+				wx.showToast({
+					title: '退出',
+					icon: "none",
+					duration: 2000
+				})
 			}
+
+			wx.setNavigationBarTitle({
+				title: self.data.Bartitle 
+			})
+
 			self.setData({
 				newslist: list
 			})
@@ -50,7 +68,8 @@ Page({
 		websocket.send('{ "content": "old message","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"record"}');
 	},
 	onUnload:function(){
-		websocket.close();
+		websocket.send('{ "content": "out","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"out"}');
+		// websocket.close();
 	},
 	//事件处理函数
 	send: function (res) {
@@ -67,9 +86,6 @@ Page({
 					increase: false
 				})
 			},500)
-
-			// 重连
-			websocket.reconnect();
 
 			// 发消息
 			websocket.send('{ "content": "' + this.data.message + '","toUserId":"'+this.data.toUserId+'","userId":"'+this.data.login_wxopenid+'","type":"text"}')
@@ -111,9 +127,6 @@ Page({
 								'increase': false,
 								'inputViewBottom': 0
 							})
-
-							// 重连
-							websocket.reconnect();
 
 							websocket.send('{ "content": "' +  res.data + '","toUserId":"'+that.data.toUserId+'","userId":"'+that.data.login_wxopenid+'","type":"image"}')
 							that.bottom()
