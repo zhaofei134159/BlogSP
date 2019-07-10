@@ -102,8 +102,16 @@ Page({
   inputSearch:function(e){
     console.log(e);
     wx.navigateTo({
-          url:"/pages/cate/cate"
+        url:"/pages/cate/cate"
+    })
+  },
+  userMessage:function(e){
+    if(this.data.hasUserInfo){
+      wx.navigateTo({
+          url:"/pages/message/message?userId="+e.target.dataset.uid
       })
+    }
   }
+
 })
 

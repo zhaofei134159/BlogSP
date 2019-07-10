@@ -14,7 +14,8 @@
     "navigationBarTitleText": "相伴一生",
     "navigationBarTextStyle": "black",
     "backgroundTextStyle": "light",
-    "backgroundColor": "#eeeeee"
+    "backgroundColor": "#eeeeee",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "backgroundColor": "#fff",
