@@ -11,6 +11,13 @@
                 <text class="user-status">[在线]</text>
             </view>
         </view>
+        <view class="user">
+            <image class="user-avatar" src="/resource/images/me.jpg" mode="cover"></image>
+            <view class="user-info">
+                <text class="user-name">交流群</text>
+                <text class="user-status">[离线请留言]</text>
+            </view>
+        </view>
        <!--  <view class="user">
             <image class="user-avatar" src="/resource/images/me.jpg" mode="cover"></image>
             <view class="user-info">
