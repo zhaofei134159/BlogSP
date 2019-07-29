@@ -14,7 +14,7 @@ Page({
 	// 首页展示数据
 	onLoad: function (options) {
 		var workId = options.workId;
-	
+
 		var self = this;
 		util.request({
 			url:conf.detailUrl,
@@ -26,7 +26,8 @@ Page({
 				self.setData({
 					work: callback.data.work
 				})
-  				WxParse.wxParse('desc', 'html', callback.data.work.desc, self, 25);
+				// callback.data.work.desc = "<div><span style='color:blue;'>我是</span>赵飞</div>";
+  				WxParse.wxParse('desc', 'md', callback.data.work.desc, self, 25);
 		    }
 		})
 	},

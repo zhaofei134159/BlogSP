@@ -1,4 +1,5 @@
 /* pages/home/home.wxss */
+@import "../../wxParse/wxParse.wxss";
 .all {
 	width:100%;
 }

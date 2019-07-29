@@ -1,12 +1,12 @@
 {
   "pages": [
-    "pages/userlist/userlist",
     "pages/home/home",
+    "pages/userlist/userlist",
     "pages/message/message",
     "pages/user/user",
     "pages/cate/cate",
-    "pages/index/index",
     "pages/detail/detail",
+    "pages/index/index",
     "pages/logs/logs"
   ],
   "window": {
@@ -24,7 +24,7 @@
     "selectedColor": "#333",
     "list": [
       {
-        "pagePath": "pages/userlist/userlist",
+        "pagePath": "pages/home/home",
         "text": "首页",
         "iconPath": "resource/images/home.png",
         "selectedIconPath": "resource/images/home-active.png"
