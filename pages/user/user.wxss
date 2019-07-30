@@ -54,7 +54,7 @@
 	border-radius:0.2rem;
 	display:block;
 	margin:0.3rem;
-	margin-left: 1.9rem;
+	margin-left: 1.2rem;
 	text-align:center;
 	/*background:#eee;*/
 }
@@ -63,6 +63,10 @@
 	height:2.5rem;
 }
 .print{
-	width:3.5rem;
-	height:2.5rem;
+	width:3rem;
+	height:3rem;
+}
+.gly{
+	width:3rem;
+	height:3rem;
 }

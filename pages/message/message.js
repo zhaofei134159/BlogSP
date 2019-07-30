@@ -24,7 +24,7 @@ Page({
 		var self = this;
 		var Bartitle = this.data.Bartitle;
 		if(e.userId==84){
-			var Bartitle = '系统管理员';
+			var Bartitle = '管理员小飞olo,';
 		}
 		this.setData({
 			toUserId: e.userId,

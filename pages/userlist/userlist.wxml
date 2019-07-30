@@ -68,12 +68,12 @@
             </view>
         </view> -->
     </view>
-    <block wx:if="{{!hasUserInfo}}">
+    <!-- <block wx:if="{{!hasUserInfo}}">
         <view class="mask" catchtouchmove="maskmove"></view>
         <view class="grant">
             <view class="grant-user">
                 <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权登录 </button>
             </view>
         </view>
-    </block>  
+    </block> -->  
 </view>

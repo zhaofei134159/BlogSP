@@ -44,5 +44,12 @@ Page({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
+  },
+  userMessage:function(e){
+    if(this.data.hasUserInfo){
+      wx.navigateTo({
+          url:"/pages/message/message?userId="+e.currentTarget.dataset.uid
+      })
+    }
   }
 })
