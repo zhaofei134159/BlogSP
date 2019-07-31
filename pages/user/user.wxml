@@ -21,10 +21,12 @@
                     <image src="/resource/images/print.png" class="print"></image>
                     <view>图片转文字</view>
                 </view>
+                <!--
                 <view class="usercont" bindtap="userMessage" data-uid="84">
                     <image src="/resource/images/gly.png" class="gly"></image>
                     <view>管理员小飞</view>
                 </view>
+                -->
             </view>
         </view>
     </view>

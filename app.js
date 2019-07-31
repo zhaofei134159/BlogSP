@@ -1,6 +1,7 @@
 // 配置js
 var conf = require('./resource/js/conf.js'),
     util = require('./utils/util.js');
+    
 //app.js
 App({
   globalData: {
