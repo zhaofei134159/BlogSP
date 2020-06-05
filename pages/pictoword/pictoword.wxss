@@ -1,0 +1,17 @@
+/* pages/home/home.wxss */
+@import "../../wxParse/wxParse.wxss";
+.all {
+	width:100%;
+}
+.pic-word{
+	width:92%;
+	height:12rem;
+	margin:0 auto;
+	padding-bottom: 0.8rem;
+	border-bottom:solid 0.01rem #ccc;
+}
+.bntImg{
+	width:120px;
+	font-size:13px;
+	margin-top:64px;
+}

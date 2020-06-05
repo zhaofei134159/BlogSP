@@ -1,0 +1,18 @@
+<import src="../../wxParse/wxParse.wxml"/>
+<!--home.wxml-->
+<view class="all">
+    <view class="pic-word">
+        <view  wx:if="{{imgPath==''}}">
+            <button bindtap="selectImg" class="bntImg">选择图片</button>
+        </view>
+        <view wx:else>
+            <image class="image" src="{{imgPath}}" mode='scaleToFill' bindtap="selectImg"></image>
+        </view>
+    </view>
+    <view class="pic-upload">
+        <button bindtap="loadImg" >上传图片</button>
+    </view>
+    <view class="word-cont">
+        
+    </view>
+</view>
