@@ -10,12 +10,21 @@
 		"preloadBackgroundData": false,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
 		"coverView": true,
+		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
 		"uglifyFileName": true,
-		"useCompilerModule": false
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.2",

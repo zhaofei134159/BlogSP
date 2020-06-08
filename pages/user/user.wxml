@@ -1,10 +1,15 @@
 <!--index.wxml-->
 <view class="all">
     <view class="userinfo">
-        <image class="userinfo-avatar" src="/resource/images/me.jpg" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <view wx:if="{{hasUserInfo==false}}">
+            <button open-type="getUserInfo" class="loginBtn" bindgetuserinfo="getUserInfo"> 授权登录 </button>
+        </view>
+        <view wx:else>
+            <image class="userinfo-avatar" src="{{blogUrl}}/{{userInfo.headimg}}" mode="cover"></image>
+            <text class="userinfo-nickname">{{userInfo.nickname}}</text>
+        </view>
     </view>
-    <view class="user-private">
+    <view class="user-private" wx:if="{{hasUserInfo==true}}">
         <view class="user-info">
             <view class="user-title">我的</view>
             <view class="user-cont">
@@ -14,6 +19,8 @@
                 </view>
             </view>
         </view>
+    </view>
+    <view class="user-private">
         <view class="user-tool">
             <view class="user-title">工具</view>
             <view class="user-cont">

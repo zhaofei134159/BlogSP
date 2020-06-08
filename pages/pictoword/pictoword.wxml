@@ -2,17 +2,32 @@
 <!--home.wxml-->
 <view class="all">
     <view class="pic-word">
-        <view  wx:if="{{imgPath==''}}">
-            <button bindtap="selectImg" class="bntImg">选择图片</button>
-        </view>
-        <view wx:else>
+        <view>
             <image class="image" src="{{imgPath}}" mode='scaleToFill' bindtap="selectImg"></image>
         </view>
     </view>
     <view class="pic-upload">
-        <button bindtap="loadImg" >上传图片</button>
+        <button bindtap="loadImg" class="bntImg">上传图片</button>
     </view>
     <view class="word-cont">
-        
+        <block  wx:for="{{wordsResult}}" wx:key="item">
+            <view class="words">{{item.words}}</view>
+        </block>  
+    </view>
+    <view  wx:if="{{loadingHidden==false}}" class="loadding">
+        <view class="tui-loading-row">
+            <view class="tui-loading-cell">
+                <view class="circle-line">
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                </view>
+            </view>
+        </view>
     </view>
 </view>

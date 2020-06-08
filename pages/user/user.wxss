@@ -4,12 +4,18 @@
 	height:100%;
 	background:#eee;
 }
+.loginBtn{
+	font-size: 14px;
+	margin-top: 41%;
+}
 .userinfo {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	background:#eee;
 	padding:0.5rem;
+	width:100%;
+	height:7rem;
 }
 .userinfo-avatar {
 	width: 3.5rem;
@@ -19,6 +25,7 @@
 }
 .userinfo-nickname {
 	color: #808080;
+	display: block;
 }
 .user-private{
 	width:100%;

@@ -1,3 +1,8 @@
+// 配置js
+var conf = require('../../resource/js/conf.js'),
+    util = require('../../utils/util.js'),
+    WxParse = require('../../wxParse/wxParse.js');
+
 //index.js
 //获取应用实例
 const app = getApp()
@@ -7,9 +12,12 @@ Page({
     motto: 'Hello World',
     userInfo: {},
     hasUserInfo: false,
+   'blogUrl':conf.blogUrl,
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
+  // 首页展示数据
   onLoad: function () {
+    var self = this;
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -24,25 +32,73 @@ Page({
           hasUserInfo: true
         })
       }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
+    }else{
+      wx.login({
+          success: function(res) {
+              if (res.code) {
+                wx.getUserInfo({
+                  success(e) {
+                    self.getUserData(e,res);
+                  }
+                })
+              } else {
+                  console.log('获取用户登录态失败！' + res.errMsg)
+                  wx.showToast({
+                    title: '获取用户登录态失败！' + res.errMsg,
+                    icon: 'none',
+                    duration: 2000
+                  });
+              }
+          }
+      });
     }
   },
   getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+    var self = this;
+    if (e.detail.userInfo) {
+      // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      wx.login({
+        success: res => {
+            self.getUserData(e.detail,res);
+        }
+      })  
+    } else {
+      console.log(333,'执行到这里，说明拒绝了授权')
+      wx.showToast({
+        title: "为了您更好的体验,请先同意授权",
+        icon: 'none',
+        duration: 2000
+      });
+    }
+  },
+  getUserData:function(userinfo,code){
+    var self = this;
+    console.log(userinfo);
+    console.log(code);
+    
+    util.request({
+        url:conf.getUserInfoUrl,
+        data:{'userInfo':userinfo.userInfo,'encryptedData':userinfo.encryptedData,'iv':encodeURIComponent(userinfo.iv),'code':code.code},
+        method:'POST',
+        header:{'content-type': 'application/x-www-form-urlencoded'},
+        success: function (callback) {
+          console.log(callback);
+          if(!callback.data.flag){
+              wx.showToast({
+                title: callback.data.msg,
+                icon: 'none',
+                duration: 2000
+              });
+          }else{
+              app.globalData.userInfo = callback.data.data;
+              wx.setStorageSync('userInfo_openid', callback.data.data.weixin_openid);
+              console.log(callback.data.data);
+              self.setData({
+                userInfo: callback.data.data,
+                hasUserInfo: true
+              })
+          }
+        }
     })
   },
   userMessage:function(e){

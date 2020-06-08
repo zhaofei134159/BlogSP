@@ -7,11 +7,13 @@ var conf = require('../../resource/js/conf.js'),
 const app = getApp()
 Page({
 	data: {
-		'imgPath':'',
+		'imgPath':'/resource/images/word.jpg',
+		'wordsResult':{},
+		'loadingHidden':true,
 	},
 	// 首页展示数据
 	onLoad: function () {
-		
+		this.loadImg();
 	},
 	onShow: function(){
 		this.setData({
@@ -43,35 +45,60 @@ Page({
 	},
 	loadImg: function () {
 		var that = this;
-		wx.uploadFile({
-		url: "http://localhost:8080/upload/upload",
-		filePath: that.data.imgPath,
-		name: "upload_file",
-		// 请求携带的额外form data
-		/*formData: {
-		"id": id
-		},*/
-		header: {
-		'Content-Type': "multipart/form-data"
-		},
-		success: function (res) {
-		wx.showToast({
-		title: "图像上传成功！",
-		icon: "",
-		duration: 1500,
-		mask: true
-		});
-		},
-		fail: function (res) {
-		wx.showToast({
-		title: "上传失败，请检查网络或稍后重试。",
-		icon: "none",
-		duration: 1500,
-		mask: true
-		});
-		}
-
+		// 动态加载图
+		this.setData({
+			loadingHidden:false,
 		})
-  }
+
+		wx.uploadFile({
+			url: conf.uploadFileWordUrl,
+			filePath: that.data.imgPath,
+			name: "file",
+			headers: {
+				'Content-Type': 'form-data'
+			},
+			success: function (res) {
+				var callBack = JSON.parse(res.data);
+				console.log(callBack);
+
+				// 隐藏动态加载图
+				that.setData({
+					loadingHidden:true
+				})
+
+				if(callBack.errorNo!='0'){
+					wx.showToast({
+						title: callBack.errorMsg,
+						icon: "",
+						duration: 1500,
+						mask: true
+					});
+				}else{
+					that.setData({
+						wordsResult:callBack.seccuss.words_result
+					})
+					wx.showToast({
+						title: '完成',
+						icon: "",
+						duration: 1500,
+						mask: true
+					});
+				}
+			},
+			fail: function (res) {
+				console.log(res);
+				// 隐藏动态加载图
+				that.setData({
+					loadingHidden:true
+				})
+				wx.showToast({
+					title: "上传失败，请检查网络或稍后重试。",
+					icon: "none",
+					duration: 1500,
+					mask: true
+				});
+			}
+		})
+	}
 })
 

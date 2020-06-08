@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/pictoword/pictoword",
     "pages/user/user",
     "pages/home/home",
     "pages/userlist/userlist",
@@ -8,6 +7,7 @@
     "pages/cate/cate",
     "pages/detail/detail",
     "pages/index/index",
+    "pages/pictoword/pictoword",
     "pages/logs/logs"
   ],
   "window": {
@@ -25,7 +25,7 @@
     "selectedColor": "#333",
     "list": [
       {
-        "pagePath": "pages/pictoword/pictoword",
+        "pagePath": "pages/user/user",
         "text": "个人中心",
         "iconPath": "resource/images/profile.png",
         "selectedIconPath": "resource/images/profile-active.png"
@@ -38,5 +38,11 @@
       }
     ]
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "networkTimeout": {
+    "request": 1000000,
+    "connectSocket": 100000,
+    "uploadFile": 1000000,
+    "downloadFile": 100000
+  }
 }
