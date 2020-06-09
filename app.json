@@ -8,6 +8,8 @@
     "pages/detail/detail",
     "pages/index/index",
     "pages/pictoword/pictoword",
+    "pages/resume/resume",
+    "pages/refuseClass/refuseClass",
     "pages/logs/logs"
   ],
   "window": {

@@ -44,13 +44,12 @@
 	margin:0 auto;
 }
 .user-cont{
-	width:90%;
+	width:100%;
 	font-size:0.9rem;
 	display: flex;
 	flex-direction: row;
     flex-wrap: wrap;
     position: relative;
-	margin:0 auto;
 }
 .user-tool{
 	margin-top:1rem;
@@ -58,12 +57,13 @@
 	background:#fff;
 }
 .usercont{
-	border-radius: 0.2rem;
-	display: block;
-	margin: 0.3rem;
-	padding: 0.2rem 0.6rem;
-	text-align: center;
-	width: 4rem;
+	padding:0.25rem 0.2rem;
+	border-radius:0.2rem;
+	display:block;
+	margin:0.3rem;
+	margin-left: 1rem;
+	text-align:center;
+	width:3rem;
 	/*background:#eee;*/
 }
 .resume{
@@ -71,8 +71,8 @@
 	height: 3rem;
 }
 .print{
-	width:2rem;
-	height:2rem;
+	width:3rem;
+	height:3rem;
 }
 .gly{
 	width:3rem;

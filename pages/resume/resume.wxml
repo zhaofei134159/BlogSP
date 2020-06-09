@@ -1,0 +1,29 @@
+<!--index.wxml-->
+<view class="all">
+    <view class="userinfo">
+        <view wx:if="{{hasUserInfo==false}}">
+            <button open-type="getUserInfo" class="loginBtn" bindgetuserinfo="getUserInfo"> 授权登录 </button>
+        </view>
+        <view wx:else>
+            <image class="userinfo-avatar" src="{{blogUrl}}/{{userInfo.headimg}}" mode="cover"></image>
+            <text class="userinfo-nickname">{{userInfo.nikename}}</text>
+        </view>
+    </view>
+    <view wx:if="{{loadingHidden==false}}" class="loadding">
+        <view class="tui-loading-row">
+            <view class="tui-loading-cell">
+                <view class="circle-line">
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                    <text></text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+

@@ -7,6 +7,7 @@ module.exports = {
     searchUrl: "https://blog.myfeiyou.com/interface/homeapp/search",
     tagSearchUrl: "https://blog.myfeiyou.com/interface/homeapp/tagSearch",
     getUserInfoUrl: "https://blog.myfeiyou.com/interface/userapp/getuserinfo",
+    openidGetUserinfo: "https://blog.myfeiyou.com/interface/userapp/openidGetUserinfo", // 微信openid 获取
     setMesssageImageUrl: "https://blog.myfeiyou.com/interface/userapp/setMesssageImage",
 
     //图片获取文字接口

@@ -20,43 +20,6 @@ Page({
   onLoad: function () {
     var userInfo_openid = wx.getStorageSync('userInfo_openid');
     var self = this;
-    /*
-      if (app.globalData.userInfo) {
-        this.setData({
-          userInfo: app.globalData.userInfo,
-          hasUserInfo: true
-        })
-      } else if (this.data.canIUse){
-        // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-        // 所以此处加入 callback 以防止这种情况
-        app.userInfoReadyCallback = res => {
-          self.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-        console.log(this.data.userInfo);
-      }else{
-        wx.login({
-            success: function(res) {
-                if (res.code) {
-                  wx.getUserInfo({
-                    success(e) {
-                      self.getUserData(e,res);
-                    }
-                  })
-                } else {
-                    console.log('获取用户登录态失败！' + res.errMsg)
-                    wx.showToast({
-                      title: '获取用户登录态失败！' + res.errMsg,
-                      icon: 'none',
-                      duration: 2000
-                    });
-                }
-            }
-        });
-      }
-    */
     if(userInfo_openid){
       this.openidGetUser(userInfo_openid);
     }
