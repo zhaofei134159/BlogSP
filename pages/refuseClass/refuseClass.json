@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarBackgroundColor": "#eee"
+  "navigationBarTitleText":"垃圾分类",
+  "disableScroll": true
 }

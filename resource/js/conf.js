@@ -10,8 +10,13 @@ module.exports = {
     openidGetUserinfo: "https://blog.myfeiyou.com/interface/userapp/openidGetUserinfo", // 微信openid 获取
     setMesssageImageUrl: "https://blog.myfeiyou.com/interface/userapp/setMesssageImage",
 
-    //图片获取文字接口
+    // 图文获取文字接口
     uploadFileWordUrl:"https://blog.myfeiyou.com/interface/extendapp/picToWord", 
+
+    // 录音上传识别
+    uploadVoiceWordUrl:"https://blog.myfeiyou.com/interface/extendapp/voiceToWord",
+    // 实物图上传识别
+    uploadEntityImageWordUrl:"https://blog.myfeiyou.com/interface/extendapp/entityImageToWord",
     
     // socket url
     webSocketUrl: "wss://wechat.myfeiyou.com",

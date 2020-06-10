@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/refuseClass/refuseClass",
     "pages/user/user",
     "pages/home/home",
     "pages/userlist/userlist",
@@ -9,7 +10,6 @@
     "pages/index/index",
     "pages/pictoword/pictoword",
     "pages/resume/resume",
-    "pages/refuseClass/refuseClass",
     "pages/logs/logs"
   ],
   "window": {
@@ -27,7 +27,7 @@
     "selectedColor": "#333",
     "list": [
       {
-        "pagePath": "pages/user/user",
+        "pagePath": "pages/refuseClass/refuseClass",
         "text": "个人中心",
         "iconPath": "resource/images/profile.png",
         "selectedIconPath": "resource/images/profile-active.png"

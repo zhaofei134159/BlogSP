@@ -9,114 +9,143 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
+    voicePath:'',
     loadingHidden:true,
-    blogUrl: conf.blogUrl,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   // 首页展示数据
   onLoad: function () {
-    var userInfo_openid = wx.getStorageSync('userInfo_openid');
-    var self = this;
-    if(userInfo_openid){
-      this.openidGetUser(userInfo_openid);
-    }
-  },
-  getUserInfo: function(e) {
-    var self = this;
-    if (e.detail.userInfo) {
-      // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      wx.login({
-        success: res => {
-            self.getUserData(e.detail,res);
-        }
-      })  
-    } else {
-      console.log(333,'执行到这里，说明拒绝了授权')
-      wx.showToast({
-        title: "为了您更好的体验,请先同意授权",
-        icon: 'none',
-        duration: 2000
-      });
-    }
-  },
-  getUserData:function(userinfo,code){
-    var self = this;
-    self.setData({
-      loadingHidden: false
-    })
-
     
-    util.request({
-        url:conf.getUserInfoUrl,
-        data:{'userInfo':userinfo.userInfo,'encryptedData':userinfo.encryptedData,'iv':encodeURIComponent(userinfo.iv),'code':code.code},
-        method:'POST',
-        header:{'content-type': 'application/x-www-form-urlencoded'},
-        success: function (callback) {
-          console.log(callback);
-          if(!callback.data.flag){
-              wx.showToast({
-                title: callback.data.msg,
-                icon: 'none',
-                duration: 2000
-              });
-          }else{
-              app.globalData.userInfo = callback.data.data;
-              wx.setStorageSync('userInfo_openid', callback.data.data.weixin_openid);
-              console.log(callback.data.data);
-              self.setData({
-                userInfo: callback.data.data,
-                hasUserInfo: true
+  },
+  // 录音开始
+  voiceStart:function(){
+    var that = this;
+    const recorderManager = wx.getRecorderManager()
+    const options = {
+      duration: 6000,
+      sampleRate: 44100,
+      numberOfChannels: 1,
+      encodeBitRate: 192000,
+      format: 'mp3',
+    }
+    //调取小程序新版授权页面
+    wx.authorize({
+      scope: 'scope.record',
+      success() {
+        console.log("录音授权成功");
+        // 用户已经同意小程序使用录音功能，后续调用 wx.startRecord 接口不会弹窗询问
+        // wx.startRecord();
+        recorderManager.start(options);//使用新版录音接口，可以获取录音文件
+      },
+      fail(){
+        console.log("第一次录音授权失败");
+        wx.showModal({
+          title: '提示',
+          content: '您未授权录音，功能将无法使用',
+          showCancel: true,
+          confirmText: "授权",
+          confirmColor: "#52a2d8",
+          success: function (res) {
+            if (res.confirm) {
+              //确认则打开设置页面（重点）
+              wx.openSetting({
+                success: (res) => {
+                  console.log(res.authSetting);
+                  if (!res.authSetting['scope.record']) {
+                    //未设置录音授权
+                    console.log("未设置录音授权");
+                    wx.showModal({
+                      title: '提示',
+                      content: '您未授权录音，功能将无法使用',
+                      showCancel: false,
+                    })
+                  } else {
+                    //第二次才成功授权
+                    console.log("设置录音授权成功");
+                    recorderManager.start(options);
+                  }
+                },
+                fail: function () {
+                  console.log("授权设置录音失败");
+                }
               })
+            } else if (res.cancel) {
+              console.log("cancel");
+            }
+          },
+          fail: function () {
+            console.log("openfail");
           }
-          
-          self.setData({
-            loadingHidden: true
-          })
-        }
+        })
+      }
     })
   },
-  openidGetUser:function(userInfo_openid){
-    var self = this;
-    self.setData({
-      loadingHidden: false
+  voiceEnd:function(){
+    var that = this;
+
+    // 录音结束 
+    const recorderManager = wx.getRecorderManager();
+    recorderManager.stop();
+    recorderManager.onStop((res) => {
+      console.log('停止录音', res.tempFilePath)
+      that.setData({
+          voicePath: res.tempFilePaths[0]
+      })
     })
 
-    util.request({
-        url:conf.openidGetUserinfo,
-        data:{'openid':userInfo_openid},
-        method:'POST',
-        header:{'content-type': 'application/x-www-form-urlencoded'},
-        success: function (callback) {
-          console.log(callback);
-          if(!callback.data.flag){
-              wx.showToast({
-                title: callback.data.msg,
-                icon: 'none',
-                duration: 2000
-              });
-          }else{
-              app.globalData.userInfo = callback.data.data;
-              wx.setStorageSync('userInfo_openid', callback.data.data.weixin_openid);
-              console.log(callback.data.data);
-              self.setData({
-                userInfo: callback.data.data,
-                hasUserInfo: true
-              })
-          }
-          self.setData({
-            loadingHidden: true
-          })
-        }
+    // 上传录音文件
+    this.setData({
+      loadingHidden:false,
     })
-  },
-  userMessage:function(e){
-    if(this.data.hasUserInfo){
-      wx.navigateTo({
-          url:"/pages/message/message?userId="+e.currentTarget.dataset.uid
-      })
-    }
+
+    wx.uploadFile({
+      url: conf.uploadVoiceWordUrl,
+      filePath: that.data.voicePath,
+      name: "file",
+      headers: {
+        'Content-Type': 'form-data'
+      },
+      success: function (res) {
+        var callBack = JSON.parse(res.data);
+        console.log(callBack);
+
+        // 隐藏动态加载图
+        that.setData({
+          loadingHidden:true
+        })
+
+        if(callBack.errorNo!='0'){
+          wx.showToast({
+            title: callBack.errorMsg,
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }else{
+          that.setData({
+            wordsResult:callBack.seccuss.words_result
+          })
+          wx.showToast({
+            title: '完成',
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        // 隐藏动态加载图
+        that.setData({
+          loadingHidden:true
+        })
+        wx.showToast({
+          title: "上传失败，请检查网络或稍后重试。",
+          icon: "none",
+          duration: 1500,
+          mask: true
+        });
+      }
+    })
+
   }
 })

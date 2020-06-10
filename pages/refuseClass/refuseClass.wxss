@@ -2,83 +2,68 @@
 .all {
 	width:100%;
 	height:100%;
-	background:#eee;
+	background:white;
 }
-.loginBtn{
-	font-size: 14px;
-	margin-top: 41%;
-}
-.userinfo {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background:#eee;
-	padding:0.5rem;
-	width:100%;
-	height:7rem;
-}
-.userinfo-avatar {
-	width: 3.5rem;
-	height: 3.5rem;
-	margin: 0.7rem;
-	border-radius: 50%;
-}
-.userinfo-nickname {
-	color: #808080;
-	display: block;
-}
-.user-private{
-	width:100%;
-}
-.user-info{
-	width:100%;
-	background:#fff;
-}
-.user-title{
-	width:90%;
-	height:2.5rem;
-	border-bottom:solid 0.1rem #ccc;
-	line-height:2.5;
-	padding-left:0.5rem;
-	font-size:1rem;
+.refuse{
+	width:95%;
 	margin:0 auto;
 }
-.user-cont{
+.refuseSearch{
+	border: solid 1px #ccc;
+	border-radius: 14px;
+	font-size: 12px;
+	padding-left: 20px;
+	padding-right:11px;
+	margin: 10px 6px 20px;
+	height:25px;
+	line-height:25px;
+}
+.refuse-search{
+	width:75%;
+	float:left;
+	height:100%;
+}
+.refuse-image{
+	width: 22px;
+	height: 22px;
+	float: right;
+	margin: 1.5px;
+}
+.refuse-rotation{
+	width: 100%;
+}
+.refuse-rotation-image{
+	height: 160px;
 	width:100%;
-	font-size:0.9rem;
-	display: flex;
-	flex-direction: row;
-    flex-wrap: wrap;
-    position: relative;
-}
-.user-tool{
-	margin-top:1rem;
-	width:100%;
-	background:#fff;
-}
-.usercont{
-	padding:0.25rem 0.2rem;
-	border-radius:0.2rem;
-	display:block;
-	margin:0.3rem;
-	margin-left: 1rem;
-	text-align:center;
-	width:3rem;
-	/*background:#eee;*/
-}
-.resume{
-	width: 3rem;
-	height: 3rem;
-}
-.print{
-	width:3rem;
-	height:3rem;
-}
-.gly{
-	width:3rem;
-	height:3rem;
+	border-radius: 10px;
 }
 
+.refuse-extend{
+	width: 95%;
+	position: fixed;
+	bottom: 25px;
+	height: 100px;
+}
+.refuse-extend-view{
+}
+.refuse-extend-voice{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, .5);
+	position: absolute;
+	left:20%;
+	margin-top:10px;
+}
+.refuse-extend-image{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, .5);
+	position: absolute;
+	right:20%;
+	margin-top:10px;
+}
 
 
 

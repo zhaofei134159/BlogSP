@@ -1,12 +1,22 @@
 <!--index.wxml-->
 <view class="all">
-    <view class="userinfo">
-        <view wx:if="{{hasUserInfo==false}}">
-            <button open-type="getUserInfo" class="loginBtn" bindgetuserinfo="getUserInfo"> 授权登录 </button>
+    <view class="refuse">
+        <view class="refuseSearch">
+            <input placeholder="搜索" class="refuse-search" confirm-type="search" bindfocus="inputSearch"/>
+            <image src='/resource/images/search.png' class="refuse-image"></image>
         </view>
-        <view wx:else>
-            <image class="userinfo-avatar" src="{{blogUrl}}/{{userInfo.headimg}}" mode="cover"></image>
-            <text class="userinfo-nickname">{{userInfo.nikename}}</text>
+        <view class="refuse-rotation">
+            <image src='/resource/images/navigation.jpg' class="refuse-rotation-image"></image>
+        </view>
+        <view class="refuse-content">
+        </view>
+        <view class="refuse-extend">
+            <view class="refuse-extend-view">
+                <image src='/resource/images/voice-noactive.png' class="refuse-extend-voice" bindtouchstart="voiceStart" bindtouchend="voiceEnd"></image>
+            </view>
+            <view class="refuse-extend-view">
+                <image src='/resource/images/image-noactive.png' class="refuse-extend-image" bindtouchstart="imageStart" bindtouchend="imageEnd"></image>
+            </view>
         </view>
     </view>
     <view wx:if="{{loadingHidden==false}}" class="loadding">
