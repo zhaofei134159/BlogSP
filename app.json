@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/refuseClass/refuseClass",
     "pages/user/user",
+    "pages/refuseClass/refuseClass",
     "pages/home/home",
     "pages/userlist/userlist",
     "pages/message/message",
@@ -27,7 +27,7 @@
     "selectedColor": "#333",
     "list": [
       {
-        "pagePath": "pages/refuseClass/refuseClass",
+        "pagePath": "pages/user/user",
         "text": "个人中心",
         "iconPath": "resource/images/profile.png",
         "selectedIconPath": "resource/images/profile-active.png"
