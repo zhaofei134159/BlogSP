@@ -12,10 +12,10 @@
         </view>
         <view class="refuse-extend">
             <view class="refuse-extend-view">
-                <image src='/resource/images/voice-noactive.png' class="refuse-extend-voice" bindtouchstart="voiceStart" bindtouchend="voiceEnd"></image>
+                <image src='{{voiceImagePath}}' class="refuse-extend-voice" bindtouchstart="voiceStart" bindtouchend="voiceEnd"></image>
             </view>
             <view class="refuse-extend-view">
-                <image src='/resource/images/image-noactive.png' class="refuse-extend-image" bindtouchstart="imageStart" bindtouchend="imageEnd"></image>
+                <image src='{{entityImagePath}}' class="refuse-extend-image" bindtouchstart="imageStart" bindtouchend="imageEnd"></image>
             </view>
         </view>
     </view>

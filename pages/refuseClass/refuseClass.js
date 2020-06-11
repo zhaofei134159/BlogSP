@@ -10,6 +10,8 @@ const app = getApp()
 Page({
   data: {
     voicePath:'',
+    voiceImagePath:'/resource/images/voice-noactive.png',
+    entityImagePath:'/resource/images/entity-noactive.png',
     loadingHidden:true,
   },
   // 首页展示数据
@@ -19,6 +21,11 @@ Page({
   // 录音开始
   voiceStart:function(){
     var that = this;
+    // 修改图片
+    this.setData({
+      voiceImagePath:'/resource/images/voice-active.png',
+    })
+
     const recorderManager = wx.getRecorderManager()
     const options = {
       duration: 6000,
@@ -81,56 +88,69 @@ Page({
   },
   voiceEnd:function(){
     var that = this;
+    // 修改图片
+    this.setData({
+      voiceImagePath:'/resource/images/voice-noactive.png',
+    })
 
     // 录音结束 
     const recorderManager = wx.getRecorderManager();
     recorderManager.stop();
     recorderManager.onStop((res) => {
       console.log('停止录音', res.tempFilePath)
-      that.setData({
-          voicePath: res.tempFilePaths[0]
-      })
+      this.uploadFileModel(res.tempFilePath,'voice');
     })
 
-    // 上传录音文件
+    // 上传文件
+  },
+  uploadFileModel:function(tempFilePath,type){
+    var that = this;
+    // 上传文件
     this.setData({
       loadingHidden:false,
     })
 
+    var uploadUrl = conf.uploadVoiceWordUrl;
+    if(type=='entity'){
+      var uploadUrl = conf.uploadEntityImageWordUrl;
+    }
+
     wx.uploadFile({
-      url: conf.uploadVoiceWordUrl,
-      filePath: that.data.voicePath,
+      url: uploadUrl,
+      filePath: tempFilePath,
       name: "file",
       headers: {
         'Content-Type': 'form-data'
       },
       success: function (res) {
-        var callBack = JSON.parse(res.data);
-        console.log(callBack);
-
         // 隐藏动态加载图
         that.setData({
           loadingHidden:true
         })
+        console.log(res);
 
-        if(callBack.errorNo!='0'){
-          wx.showToast({
-            title: callBack.errorMsg,
-            icon: "",
-            duration: 1500,
-            mask: true
-          });
-        }else{
-          that.setData({
-            wordsResult:callBack.seccuss.words_result
-          })
-          wx.showToast({
-            title: '完成',
-            icon: "",
-            duration: 1500,
-            mask: true
-          });
-        }
+
+        // var callBack = JSON.parse(res.data);
+        // console.log(callBack);
+
+        // if(callBack.errorNo!='0'){
+        //   wx.showToast({
+        //     title: callBack.errorMsg,
+        //     icon: "",
+        //     duration: 1500,
+        //     mask: true
+        //   });
+        // }else{
+        //   that.setData({
+        //     wordsResult:callBack.seccuss.words_result
+        //   })
+        //   wx.showToast({
+        //     title: '完成',
+        //     icon: "",
+        //     duration: 1500,
+        //     mask: true
+        //   });
+        // }
       },
       fail: function (res) {
         console.log(res);
@@ -146,6 +166,5 @@ Page({
         });
       }
     })
-
   }
 })
