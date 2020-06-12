@@ -6,17 +6,30 @@ var conf = require('../../resource/js/conf.js'),
 //index.js
 //获取应用实例
 const app = getApp()
+const myaudio = wx.createInnerAudioContext();
 
 Page({
   data: {
-    voicePath:'',
+    voicePath:'https://blog.myfeiyou.com/public/public/voiceToWord/2020061210292770607.pcm',
+    entityPath:'',
+    fileWord:{0:'我不知道'},
+    contShow:'voice',
     voiceImagePath:'/resource/images/voice-noactive.png',
     entityImagePath:'/resource/images/entity-noactive.png',
     loadingHidden:true,
+    isplay:false,
+    voicePlay:'/resource/images/voice.png',
   },
   // 首页展示数据
   onLoad: function () {
-    
+
+  },
+  // 导航点击切换内容
+  navTap:function(event){
+    var title = event.currentTarget.dataset.title;
+    this.setData({
+        contShow: title,
+    });
   },
   // 录音开始
   voiceStart:function(){
@@ -29,10 +42,10 @@ Page({
     const recorderManager = wx.getRecorderManager()
     const options = {
       duration: 6000,
-      sampleRate: 44100,
+      sampleRate: 16000,
       numberOfChannels: 1,
-      encodeBitRate: 192000,
-      format: 'mp3',
+      encodeBitRate: 48000,
+      format: 'pcm',
     }
     //调取小程序新版授权页面
     wx.authorize({
@@ -98,10 +111,28 @@ Page({
     recorderManager.stop();
     recorderManager.onStop((res) => {
       console.log('停止录音', res.tempFilePath)
+      // 上传文件
       this.uploadFileModel(res.tempFilePath,'voice');
     })
-
-    // 上传文件
+  },
+  // 播放
+  voicePlayback: function () {
+    if(this.data.isplay==false){
+      myaudio.src = this.data.voicePath;
+      myaudio.play();
+      myaudio.onPlay(() => {console.log('录音播放中');})
+      myaudio.onStop(() => {console.log('录音播放停止');})
+      myaudio.onEnded(() => {console.log('录音播放结束');})
+      console.log(myaudio);
+      this.setData({
+          isplay: true,
+      });
+    }else{ 
+      myaudio.pause();
+      this.setData({
+          isplay: false,
+      });
+    }
   },
   uploadFileModel:function(tempFilePath,type){
     var that = this;
@@ -129,28 +160,30 @@ Page({
         })
         console.log(res);
 
+        var callBack = JSON.parse(res.data);
+        console.log(callBack);
 
-        // var callBack = JSON.parse(res.data);
-        // console.log(callBack);
-
-        // if(callBack.errorNo!='0'){
-        //   wx.showToast({
-        //     title: callBack.errorMsg,
-        //     icon: "",
-        //     duration: 1500,
-        //     mask: true
-        //   });
-        // }else{
-        //   that.setData({
-        //     wordsResult:callBack.seccuss.words_result
-        //   })
-        //   wx.showToast({
-        //     title: '完成',
-        //     icon: "",
-        //     duration: 1500,
-        //     mask: true
-        //   });
-        // }
+        if(callBack.errorNo!='0'){
+          wx.showToast({
+            title: callBack.errorMsg,
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }else{
+          that.setData({
+            voicePath:callBack.seccuss.voicePath,
+            fileWord:callBack.seccuss.word,
+            entityPath:'',
+            contShow:'voice',
+          })
+          wx.showToast({
+            title: '完成',
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }
       },
       fail: function (res) {
         console.log(res);

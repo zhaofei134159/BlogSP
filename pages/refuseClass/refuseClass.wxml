@@ -9,6 +9,42 @@
             <image src='/resource/images/navigation.jpg' class="refuse-rotation-image"></image>
         </view>
         <view class="refuse-content">
+            <view class="refuse-file">
+                <view class="refuse-title">
+                    <view class="refuse-nav {{contShow=='voice'?'contAvtice':''}}" wx:if="{{voicePath!=''}}" bindtap="navTap" data-title="voice">语音</view>
+                    <view class="refuse-nav {{contShow=='entity'?'contAvtice':''}}" wx:if="{{entityPath!=''}}" bindtap="navTap" data-title="entity">图片</view>
+                    <view class="refuse-nav {{contShow=='word'?'contAvtice':''}}" wx:if="{{fileWord!=''}}" bindtap="navTap" data-title="word">文字</view>
+                </view>
+                <view class="refuse-getInfo">
+                    <view class="refuse-getinfo-content" wx:if="{{voicePath!=''&&contShow=='voice'}}" >
+                        <image src="{{voicePlay}}" class="m-voiceImg {{isplay?'rotate':''}}" bindtap="voicePlayback"></image>
+                    </view>
+                    <view class="refuse-getinfo-content" wx:if="{{entityPath!=''&&contShow=='entity'}}" >
+                        
+                    </view>
+                    <view class="refuse-getinfo-content" wx:if="{{fileWord!=''&&contShow=='word'}}" >
+                        <block  wx:for="{{fileWord}}" wx:key="item">
+                            <view class="refuse-words">{{item}}</view>
+                        </block> 
+                    </view>
+                </view>
+                <!-- <view class="refuse-group refuse-left"> 
+                    <view wx:if="{{voicePath!=''}}" class="voice-file">
+                        <image src='{{voicePlay}}' class="voice-file-img" bindtap="voicePlayback"></image>
+                    </view>
+                    <view wx:if="{{entityPath!=''}}" class="entity-file">
+                        
+                    </view>
+                </view>
+                <view class="refuse-group refuse-right">
+                    <block  wx:for="{{fileWord}}" wx:key="item">
+                        <view class="refuse-words">{{item}}</view>
+                    </block> 
+                </view> -->
+            </view>
+            <view class="refuse-word">
+                
+            </view>    
         </view>
         <view class="refuse-extend">
             <view class="refuse-extend-view">

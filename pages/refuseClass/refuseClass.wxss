@@ -37,6 +37,45 @@
 	width:100%;
 	border-radius: 10px;
 }
+.refuse-content{
+	width:100%;
+	margin:10px 0px;
+	text-align: center;
+}
+.refuse-getinfo-content{
+  padding: 20px 30px;
+  text-align: left;
+  border-bottom: solid 1px #ccc;
+}
+.refuse-nav{
+	font-size: 16px;
+	font-weight: bold;
+	float: left;
+	padding: 10px 20px;
+	border-bottom: solid 1px #ccc;
+}
+.contAvtice{
+  border-bottom: solid 1px #83c17e;
+  color: #83c17e;
+}
+.voice-file-img{
+	width: 60px;
+	height: 60px;
+	border: solid 1px #ddd;
+	padding: 5px;
+}
+.refuse-words{
+	font-size: 16px;
+	text-align: left;
+	padding-top: 10px;
+}
+.m-voiceImg{
+  width: 50px;
+  height: 50px;
+  border: solid 1px #83c17e;
+  border-radius: 50%;
+  padding: 5px;
+}
 
 .refuse-extend{
 	width: 95%;
@@ -47,21 +86,21 @@
 .refuse-extend-view{
 }
 .refuse-extend-voice{
-	width: 80px;
-	height: 80px;
+	width: 65px;
+	height: 65px;
 	border-radius: 50%;
 	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, .5);
 	position: absolute;
-	left:20%;
+	left:25%;
 	margin-top:10px;
 }
 .refuse-extend-image{
-	width: 80px;
-	height: 80px;
+	width: 65px;
+	height: 65px;
 	border-radius: 50%;
 	box-shadow: 0px 2px 9px 0px rgba(0, 0, 0, .5);
 	position: absolute;
-	right:20%;
+	right:25%;
 	margin-top:10px;
 }
 
@@ -155,4 +194,18 @@
     100%{
         opacity: 0.9;
     }
+}
+
+
+/* 语音波动效果 */
+.rotate{
+  animation: rotate 12s infinite;
+}
+@keyframes rotate{
+  from{
+      transform: rotate(0deg)
+  }
+  to{
+      transform: rotate(360deg)
+  }
 }
