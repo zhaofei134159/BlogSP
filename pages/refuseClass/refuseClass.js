@@ -10,6 +10,7 @@ const myaudio = wx.createInnerAudioContext();
 
 Page({
   data: {
+    // voicePath:'https://blog.myfeiyou.com/public/public/mp3/4.mp3',
     voicePath:'https://blog.myfeiyou.com/public/public/voiceToWord/2020061210292770607.pcm',
     entityPath:'',
     fileWord:{0:'我不知道'},
@@ -45,7 +46,7 @@ Page({
       sampleRate: 16000,
       numberOfChannels: 1,
       encodeBitRate: 48000,
-      format: 'pcm',
+      format: 'wav',
     }
     //调取小程序新版授权页面
     wx.authorize({
@@ -118,12 +119,15 @@ Page({
   // 播放
   voicePlayback: function () {
     if(this.data.isplay==false){
-      myaudio.src = this.data.voicePath;
-      myaudio.play();
-      myaudio.onPlay(() => {console.log('录音播放中');})
-      myaudio.onStop(() => {console.log('录音播放停止');})
-      myaudio.onEnded(() => {console.log('录音播放结束');})
-      console.log(myaudio);
+      myaudio.autoplay = true
+      myaudio.src = this.data.voicePath
+      myaudio.onPlay(() => {
+        console.log('开始播放')
+      })
+      myaudio.onError((res) => {
+        console.log(res.errMsg)
+        console.log(res.errCode)
+      })
       this.setData({
           isplay: true,
       });

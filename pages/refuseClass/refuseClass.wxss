@@ -93,6 +93,7 @@
 	position: absolute;
 	left:25%;
 	margin-top:10px;
+  background:white;
 }
 .refuse-extend-image{
 	width: 65px;
@@ -102,6 +103,7 @@
 	position: absolute;
 	right:25%;
 	margin-top:10px;
+  background:white;
 }
 
 
