@@ -58,6 +58,7 @@ Page({
 				'Content-Type': 'form-data'
 			},
 			success: function (res) {
+				console.log(res);
 				var callBack = JSON.parse(res.data);
 				console.log(callBack);
 

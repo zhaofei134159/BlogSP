@@ -20,27 +20,19 @@
                         <image src="{{voicePlay}}" class="m-voiceImg {{isplay?'rotate':''}}" bindtap="voicePlayback"></image>
                     </view>
                     <view class="refuse-getinfo-content" wx:if="{{entityPath!=''&&contShow=='entity'}}" >
-                        
+                        <image src="{{entityPath}}" class="entityImage" ></image>
                     </view>
-                    <view class="refuse-getinfo-content" wx:if="{{fileWord!=''&&contShow=='word'}}" >
-                        <block  wx:for="{{fileWord}}" wx:key="item">
-                            <view class="refuse-words">{{item}}</view>
-                        </block> 
-                    </view>
-                </view>
-                <!-- <view class="refuse-group refuse-left"> 
-                    <view wx:if="{{voicePath!=''}}" class="voice-file">
-                        <image src='{{voicePlay}}' class="voice-file-img" bindtap="voicePlayback"></image>
-                    </view>
-                    <view wx:if="{{entityPath!=''}}" class="entity-file">
-                        
+                    <view class="refuse-getinfo-content refuse-word" wx:if="{{fileWord!=''&&contShow=='word'}}" >
+                        <view wx:if="{{'String' === fileWord.constructor}}">
+                            {{fileWord}}
+                        </view>
+                        <view wx:else>
+                            <block  wx:for="{{fileWord}}" wx:key="item">
+                                <view class="words">{{item.words}}</view>
+                            </block>  
+                        </view>
                     </view>
                 </view>
-                <view class="refuse-group refuse-right">
-                    <block  wx:for="{{fileWord}}" wx:key="item">
-                        <view class="refuse-words">{{item}}</view>
-                    </block> 
-                </view> -->
             </view>
             <view class="refuse-word">
                 
@@ -51,7 +43,7 @@
                 <image src='{{voiceImagePath}}' class="refuse-extend-voice" bindtouchstart="voiceStart" bindtouchend="voiceEnd"></image>
             </view>
             <view class="refuse-extend-view">
-                <image src='{{entityImagePath}}' class="refuse-extend-image" bindtouchstart="imageStart" bindtouchend="imageEnd"></image>
+                <image src='{{entityImagePath}}' class="refuse-extend-image"  bindtap="selectImg"></image>
             </view>
         </view>
     </view>

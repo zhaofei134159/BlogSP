@@ -15,6 +15,7 @@ module.exports = {
 
     // 录音上传识别
     uploadVoiceWordUrl:"https://blog.myfeiyou.com/interface/extendapp/voiceToWord",
+    getVoiceUploadDescUrl:'https://blog.myfeiyou.com/interface/extendapp/getVoiceUploadDesc',
     // 实物图上传识别
     uploadEntityImageWordUrl:"https://blog.myfeiyou.com/interface/extendapp/entityImageToWord",
     

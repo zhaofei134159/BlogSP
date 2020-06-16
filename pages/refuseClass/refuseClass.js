@@ -10,10 +10,10 @@ const myaudio = wx.createInnerAudioContext();
 
 Page({
   data: {
-    // voicePath:'https://blog.myfeiyou.com/public/public/mp3/4.mp3',
-    voicePath:'https://blog.myfeiyou.com/public/public/voiceToWord/2020061210292770607.pcm',
+    voicePath:'',
+    voiceTaskId:'',
     entityPath:'',
-    fileWord:{0:'我不知道'},
+    fileWord:'',
     contShow:'voice',
     voiceImagePath:'/resource/images/voice-noactive.png',
     entityImagePath:'/resource/images/entity-noactive.png',
@@ -31,6 +31,58 @@ Page({
     this.setData({
         contShow: title,
     });
+    if(title=='word'&&this.data.voicePath!=''){
+      this.getWord();
+    }
+  },
+  getWord:function(){
+    var that = this;
+
+    this.setData({
+      loadingHidden:false,
+    })
+
+    util.request({
+      url:conf.getVoiceUploadDescUrl,
+      data:{'voicePath':this.data.voicePath,'task_id':this.data.voiceTaskId},
+      method:'get',
+      header:{'content-type': 'application/json'},
+      success: function (res) {
+          that.setData({
+            loadingHidden:true,
+          })
+
+          console.log(res);
+          var callBack = res.data;
+          console.log(callBack);
+
+          if(callBack.errorNo!='0'){
+            wx.showToast({
+              title: callBack.errorMsg,
+              icon: "",
+              duration: 1500,
+              mask: true
+            });
+          }else{
+            var word = callBack.success.word;
+            if(callBack.success.word==''){
+                word = '无内容';
+            }
+            console.log(word);
+            that.setData({
+              fileWord:word,
+              voiceTaskId:callBack.success.taskId,
+              contShow:'word',
+            })
+            wx.showToast({
+              title: '完成',
+              icon: "",
+              duration: 1500,
+              mask: true
+            });
+          }
+        }
+    })
   },
   // 录音开始
   voiceStart:function(){
@@ -42,7 +94,7 @@ Page({
 
     const recorderManager = wx.getRecorderManager()
     const options = {
-      duration: 6000,
+      duration: 20000,
       sampleRate: 16000,
       numberOfChannels: 1,
       encodeBitRate: 48000,
@@ -176,10 +228,88 @@ Page({
           });
         }else{
           that.setData({
-            voicePath:callBack.seccuss.voicePath,
-            fileWord:callBack.seccuss.word,
+            voicePath:callBack.seccuss.voiceFile,
+            voiceTaskId:callBack.seccuss.taskId,
+            fileWord:'努力加载中......',
             entityPath:'',
             contShow:'voice',
+          })
+          wx.showToast({
+            title: '完成',
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        // 隐藏动态加载图
+        that.setData({
+          loadingHidden:true
+        })
+        wx.showToast({
+          title: "上传失败，请检查网络或稍后重试。",
+          icon: "none",
+          duration: 1500,
+          mask: true
+        });
+      }
+    })
+  },
+  selectImg:function(){
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        //res.tempFilePaths 返回图片本地文件路径列表
+        var tempFilePaths = res.tempFilePaths;
+        that.setData({
+          entityPath: tempFilePaths[0]
+        })
+        that.loadImg();
+      }
+    })
+  },
+  loadImg: function () {
+    var that = this;
+    // 动态加载图
+    this.setData({
+      loadingHidden:false,
+    })
+
+    wx.uploadFile({
+      url: conf.uploadFileWordUrl,
+      filePath: that.data.entityPath,
+      name: "file",
+      headers: {
+        'Content-Type': 'form-data'
+      },
+      success: function (res) {
+        console.log(res);
+        var callBack = JSON.parse(res.data);
+        console.log(callBack);
+
+        // 隐藏动态加载图
+        that.setData({
+          loadingHidden:true
+        })
+
+        if(callBack.errorNo!='0'){
+          wx.showToast({
+            title: callBack.errorMsg,
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }else{
+          that.setData({
+            voicePath:'',
+            voiceTaskId:'',
+            fileWord:callBack.seccuss.words_result,
+            contShow:'entity',
           })
           wx.showToast({
             title: '完成',
