@@ -46,7 +46,7 @@ Page({
       sampleRate: 16000,
       numberOfChannels: 1,
       encodeBitRate: 48000,
-      format: 'wav',
+      format: 'mp3',
     }
     //调取小程序新版授权页面
     wx.authorize({
