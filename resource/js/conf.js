@@ -14,10 +14,10 @@ module.exports = {
     uploadFileWordUrl:"https://blog.myfeiyou.com/interface/extendapp/picToWord", 
 
     // 录音上传识别
-    uploadVoiceWordUrl:"https://blog.myfeiyou.com/interface/extendapp/voiceToWord",
-    getVoiceUploadDescUrl:'https://blog.myfeiyou.com/interface/extendapp/getVoiceUploadDesc',
+    uploadVoiceWordUrl:"https://blog.myfeiyou.com/interface/refuseapp/refuseVoiceDiscern",
+    // getVoiceUploadDescUrl:'https://blog.myfeiyou.com/interface/extendapp/getVoiceUploadDesc',
     // 实物图上传识别
-    uploadEntityImageWordUrl:"https://blog.myfeiyou.com/interface/extendapp/entityImageToWord",
+    uploadEntityImageWordUrl:"https://blog.myfeiyou.com/interface/refuseapp/refuseEntityDiscern",
     
     // socket url
     webSocketUrl: "wss://wechat.myfeiyou.com",

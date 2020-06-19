@@ -281,7 +281,7 @@ Page({
     })
 
     wx.uploadFile({
-      url: conf.uploadFileWordUrl,
+      url: conf.uploadEntityImageWordUrl,
       filePath: that.data.entityPath,
       name: "file",
       headers: {
