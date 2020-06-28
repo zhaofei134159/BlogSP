@@ -247,6 +247,7 @@ Page({
               voicePath:'',
               fileWord:callBack.success.garbage_info,
               entityPath:callBack.success.imgFile,
+              inputSearchInfo:'',
               contShow:'entity',
             })
           }else{
@@ -254,6 +255,7 @@ Page({
               voicePath:callBack.success.voiceFile,
               fileWord:callBack.success.garbage_info,
               entityPath:'',
+              inputSearchInfo:'',
               contShow:'voice',
             })
           }
