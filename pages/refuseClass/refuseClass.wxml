@@ -2,8 +2,11 @@
 <view class="all">
     <view class="refuse">
         <view class="refuseSearch">
-            <input placeholder="搜索" class="refuse-search" confirm-type="search" bindfocus="inputSearch"/>
-            <image src='/resource/images/search.png' class="refuse-image"></image>
+            <picker class="refuse-select" mode="selector" range-key="city_name" bindchange="bindPickerChange" value="{{cityIndex}}" range="{{citySelect}}">
+                <view class="picker">{{citySelect[cityIndex]['city_name']}}</view>
+            </picker>
+            <input placeholder="搜索" class="refuse-search" confirm-type="search" bindinput ='setInput' />
+            <image src='/resource/images/search.png' class="refuse-image" bindtap="inputSearch"></image>
         </view>
         <view class="refuse-rotation">
             <image src='/resource/images/navigation.jpg' class="refuse-rotation-image"></image>
@@ -23,14 +26,12 @@
                         <image src="{{entityPath}}" class="entityImage" ></image>
                     </view>
                     <view class="refuse-getinfo-content refuse-word" wx:if="{{fileWord!=''&&contShow=='word'}}" >
-                        <view wx:if="{{'String' === fileWord.constructor}}">
-                            {{fileWord}}
-                        </view>
-                        <view wx:else>
-                            <block  wx:for="{{fileWord}}" wx:key="item">
-                                <view class="words">{{item.words}}</view>
-                            </block>  
-                        </view>
+                        <block  wx:for="{{fileWord}}" wx:key="item">
+                            <view class="words"><text class="refuse-word-show">城市名称:</text> {{item.city_name}}</view>
+                            <view class="words"><text class="refuse-word-show">垃圾名称:</text> {{item.garbage_name}}</view>
+                            <view class="words"><text class="refuse-word-show">分类名称:</text> {{item.cate_name}}</view>
+                            <view class="words"><text class="refuse-word-show">投放建议:</text> {{item.ps}}</view>
+                        </block>  
                     </view>
                 </view>
             </view>

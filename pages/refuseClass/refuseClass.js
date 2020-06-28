@@ -10,6 +10,9 @@ const myaudio = wx.createInnerAudioContext();
 
 Page({
   data: {
+    citySelect:{},
+    cityIndex:'0',
+    inputSearchInfo:'',
     voicePath:'',
     voiceTaskId:'',
     entityPath:'',
@@ -23,31 +26,42 @@ Page({
   },
   // 首页展示数据
   onLoad: function () {
-
-  },
-  // 导航点击切换内容
-  navTap:function(event){
-    var title = event.currentTarget.dataset.title;
+    var city = [
+            {'city_id':'110000','city_name':'北京市'},
+            {'city_id':'310000','city_name':'上海市'},
+            {'city_id':'330200','city_name':'宁波市'},
+            {'city_id':'440300','city_name':'深圳市'},
+            {'city_id':'610100','city_name':'西安市'}
+        ];
     this.setData({
-        contShow: title,
-    });
-    if(title=='word'&&this.data.voicePath!=''){
-      this.getWord();
-    }
+      citySelect: city
+    })
   },
-  getWord:function(){
+  bindPickerChange:function(e){
+    this.setData({
+      cityIndex: e.detail.value
+    })
+  },
+  setInput:function(e){
+    this.setData({
+      inputSearchInfo: e.detail.value
+    })
+  },
+  inputSearch:function(){
+    var search = this.data.inputSearchInfo;
     var that = this;
-
+    // 上传文件
     this.setData({
       loadingHidden:false,
     })
 
     util.request({
-      url:conf.getVoiceUploadDescUrl,
-      data:{'voicePath':this.data.voicePath,'task_id':this.data.voiceTaskId},
-      method:'get',
-      header:{'content-type': 'application/json'},
-      success: function (res) {
+        url:conf.searchWordUrl,
+        data:{'search':search,'cityId':this.data.citySelect[this.data.cityIndex].city_id},
+        method:'get',
+        header:{'content-type': 'application/json'},
+        success: function (res) {
+          // 上传文件
           that.setData({
             loadingHidden:true,
           })
@@ -64,14 +78,10 @@ Page({
               mask: true
             });
           }else{
-            var word = callBack.success.word;
-            if(callBack.success.word==''){
-                word = '无内容';
-            }
-            console.log(word);
             that.setData({
-              fileWord:word,
-              voiceTaskId:callBack.success.taskId,
+              voicePath:'',
+              fileWord:callBack.success.garbage_info,
+              entityPath:'',
               contShow:'word',
             })
             wx.showToast({
@@ -83,6 +93,13 @@ Page({
           }
         }
     })
+  },
+  // 导航点击切换内容
+  navTap:function(event){
+    var title = event.currentTarget.dataset.title;
+    this.setData({
+        contShow: title,
+    });
   },
   // 录音开始
   voiceStart:function(){
@@ -97,8 +114,9 @@ Page({
       duration: 20000,
       sampleRate: 16000,
       numberOfChannels: 1,
-      encodeBitRate: 48000,
+      encodeBitRate: 96000,
       format: 'mp3',
+      frameSize: 50,
     }
     //调取小程序新版授权页面
     wx.authorize({
@@ -168,6 +186,100 @@ Page({
       this.uploadFileModel(res.tempFilePath,'voice');
     })
   },
+  // 选择图片上传
+  selectImg:function(){
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        //res.tempFilePaths 返回图片本地文件路径列表
+        var tempFilePaths = res.tempFilePaths;
+        that.setData({
+          entityPath: tempFilePaths[0]
+        })
+        // 上传文件
+        that.uploadFileModel(tempFilePaths[0],'entity');
+      }
+    })
+  },
+  uploadFileModel:function(tempFilePath,type){
+    var that = this;
+    // 上传文件
+    this.setData({
+      loadingHidden:false,
+    })
+
+    var uploadUrl = conf.uploadVoiceWordUrl;
+    if(type=='entity'){
+      var uploadUrl = conf.uploadEntityImageWordUrl;
+    }
+
+    wx.uploadFile({
+      url: uploadUrl,
+      filePath: tempFilePath,
+      name: "file",
+      formData: {'cityId':this.data.citySelect[this.data.cityIndex].city_id},
+      headers: {
+        'Content-Type': 'form-data'
+      },
+      success: function (res) {
+        // 隐藏动态加载图
+        that.setData({
+          loadingHidden:true
+        })
+        console.log(res);
+
+        var callBack = JSON.parse(res.data);
+        console.log(callBack);
+
+        if(callBack.errorNo!='0'){
+          wx.showToast({
+            title: callBack.errorMsg,
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }else{
+          if(type=='entity'){
+            that.setData({
+              voicePath:'',
+              fileWord:callBack.success.garbage_info,
+              entityPath:callBack.success.imgFile,
+              contShow:'entity',
+            })
+          }else{
+            that.setData({
+              voicePath:callBack.success.voiceFile,
+              fileWord:callBack.success.garbage_info,
+              entityPath:'',
+              contShow:'voice',
+            })
+          }
+          wx.showToast({
+            title: '完成',
+            icon: "",
+            duration: 1500,
+            mask: true
+          });
+        }
+      },
+      fail: function (res) {
+        console.log(res);
+        // 隐藏动态加载图
+        that.setData({
+          loadingHidden:true
+        })
+        wx.showToast({
+          title: "上传失败，请检查网络或稍后重试。",
+          icon: "none",
+          duration: 1500,
+          mask: true
+        });
+      }
+    })
+  },
   // 播放
   voicePlayback: function () {
     if(this.data.isplay==false){
@@ -189,149 +301,5 @@ Page({
           isplay: false,
       });
     }
-  },
-  uploadFileModel:function(tempFilePath,type){
-    var that = this;
-    // 上传文件
-    this.setData({
-      loadingHidden:false,
-    })
-
-    var uploadUrl = conf.uploadVoiceWordUrl;
-    if(type=='entity'){
-      var uploadUrl = conf.uploadEntityImageWordUrl;
-    }
-
-    wx.uploadFile({
-      url: uploadUrl,
-      filePath: tempFilePath,
-      name: "file",
-      headers: {
-        'Content-Type': 'form-data'
-      },
-      success: function (res) {
-        // 隐藏动态加载图
-        that.setData({
-          loadingHidden:true
-        })
-        console.log(res);
-
-        var callBack = JSON.parse(res.data);
-        console.log(callBack);
-
-        if(callBack.errorNo!='0'){
-          wx.showToast({
-            title: callBack.errorMsg,
-            icon: "",
-            duration: 1500,
-            mask: true
-          });
-        }else{
-          that.setData({
-            voicePath:callBack.seccuss.voiceFile,
-            voiceTaskId:callBack.seccuss.taskId,
-            fileWord:'努力加载中......',
-            entityPath:'',
-            contShow:'voice',
-          })
-          wx.showToast({
-            title: '完成',
-            icon: "",
-            duration: 1500,
-            mask: true
-          });
-        }
-      },
-      fail: function (res) {
-        console.log(res);
-        // 隐藏动态加载图
-        that.setData({
-          loadingHidden:true
-        })
-        wx.showToast({
-          title: "上传失败，请检查网络或稍后重试。",
-          icon: "none",
-          duration: 1500,
-          mask: true
-        });
-      }
-    })
-  },
-  selectImg:function(){
-    var that = this;
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        //res.tempFilePaths 返回图片本地文件路径列表
-        var tempFilePaths = res.tempFilePaths;
-        that.setData({
-          entityPath: tempFilePaths[0]
-        })
-        that.loadImg();
-      }
-    })
-  },
-  loadImg: function () {
-    var that = this;
-    // 动态加载图
-    this.setData({
-      loadingHidden:false,
-    })
-
-    wx.uploadFile({
-      url: conf.uploadEntityImageWordUrl,
-      filePath: that.data.entityPath,
-      name: "file",
-      headers: {
-        'Content-Type': 'form-data'
-      },
-      success: function (res) {
-        console.log(res);
-        var callBack = JSON.parse(res.data);
-        console.log(callBack);
-
-        // 隐藏动态加载图
-        that.setData({
-          loadingHidden:true
-        })
-
-        if(callBack.errorNo!='0'){
-          wx.showToast({
-            title: callBack.errorMsg,
-            icon: "",
-            duration: 1500,
-            mask: true
-          });
-        }else{
-          that.setData({
-            voicePath:'',
-            voiceTaskId:'',
-            fileWord:callBack.seccuss.words_result,
-            contShow:'entity',
-          })
-          wx.showToast({
-            title: '完成',
-            icon: "",
-            duration: 1500,
-            mask: true
-          });
-        }
-      },
-      fail: function (res) {
-        console.log(res);
-        // 隐藏动态加载图
-        that.setData({
-          loadingHidden:true
-        })
-        wx.showToast({
-          title: "上传失败，请检查网络或稍后重试。",
-          icon: "none",
-          duration: 1500,
-          mask: true
-        });
-      }
-    })
   }
 })

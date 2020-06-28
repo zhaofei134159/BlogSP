@@ -15,19 +15,26 @@
 	padding-left: 20px;
 	padding-right:11px;
 	margin: 10px 6px 20px;
-	height:25px;
-	line-height:25px;
+	height:30px;
+	line-height:30px;
+}
+.refuse-select{
+  float: left;
+  width: 13%;
+  border-right: solid 1px #ccc;
+  margin-right: 13px;
 }
 .refuse-search{
 	width:75%;
 	float:left;
 	height:100%;
+  font-size:12.3px;
 }
 .refuse-image{
-	width: 22px;
-	height: 22px;
-	float: right;
-	margin: 1.5px;
+  width: 23px;
+  height: 23px;
+  float: right;
+  margin-top: 5px;
 }
 .refuse-rotation{
 	width: 100%;
@@ -47,6 +54,10 @@
   text-align: left;
   border-bottom: solid 1px #ccc;
   font-size: 16px;
+}
+.refuse-word-show{
+  font-weight: bold;
+  margin-right: 10px;
 }
 .entityImage{
   width:100%;
@@ -122,6 +133,7 @@
 	top:0px;
 	opacity: 0.6;
 	position: fixed;
+  z-index:1000;
 }
 .tui-loading-row{
     width: 100%;

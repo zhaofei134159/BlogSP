@@ -18,6 +18,8 @@ module.exports = {
     // getVoiceUploadDescUrl:'https://blog.myfeiyou.com/interface/extendapp/getVoiceUploadDesc',
     // 实物图上传识别
     uploadEntityImageWordUrl:"https://blog.myfeiyou.com/interface/refuseapp/refuseEntityDiscern",
+    // 文字搜索
+    searchWordUrl:"https://blog.myfeiyou.com/interface/refuseapp/refuseWordSearchDiscern",
     
     // socket url
     webSocketUrl: "wss://wechat.myfeiyou.com",

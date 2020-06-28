@@ -34,13 +34,13 @@
                         <view>图文转换</view>
                     </view>
                 </navigator>
+                <!--
                 <navigator url='../refuseClass/refuseClass'>
                     <view class="usercont">
                         <image src="/resource/images/refuseClass.png" class="print"></image>
                         <view>垃圾分类</view>
                     </view>
                 </navigator>
-                <!--
                 <view class="usercont" bindtap="userMessage" data-uid="84">
                     <image src="/resource/images/gly.png" class="gly"></image>
                     <view>管理员小飞</view>
