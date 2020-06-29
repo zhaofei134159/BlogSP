@@ -30,7 +30,7 @@
                             <view class="words"><text class="refuse-word-show">城市名称:</text> {{item.city_name}}</view>
                             <view class="words"><text class="refuse-word-show">垃圾名称:</text> {{item.garbage_name}}</view>
                             <view class="words"><text class="refuse-word-show">分类名称:</text> {{item.cate_name}}</view>
-                            <view class="words"><text class="refuse-word-show">投放建议:</text> {{item.ps}}</view>
+                            <view class="words words-bottom"><text class="refuse-word-show">投放建议:</text> {{item.ps}}</view>
                         </block>  
                     </view>
                 </view>

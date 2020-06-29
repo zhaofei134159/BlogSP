@@ -284,21 +284,35 @@ Page({
   },
   // 播放
   voicePlayback: function () {
+    var that = this;
     if(this.data.isplay==false){
-      myaudio.autoplay = true
       myaudio.src = this.data.voicePath
+      myaudio.play();
       myaudio.onPlay(() => {
-        console.log('开始播放')
+        console.log('开始播放');
+        that.setData({
+            isplay: true,
+        });
       })
+      myaudio.onStop(() => {
+        that.setData({
+            isplay: false,
+        });
+      });
+      myaudio.onEnded(() => {
+        that.setData({
+            isplay: false,
+        });
+      });
       myaudio.onError((res) => {
         console.log(res.errMsg)
         console.log(res.errCode)
+        that.setData({
+            isplay: false,
+        });
       })
-      this.setData({
-          isplay: true,
-      });
     }else{ 
-      myaudio.pause();
+      myaudio.stop();
       this.setData({
           isplay: false,
       });
